@@ -10,6 +10,7 @@ class Counter extends Component {
     cartMinValue: 0,
     isSetCartMinValue: false,
     isDeal: false,
+    isGenerous: false,
     counterStep: 0,
     maxSteps: 7,
     firstOffer: 0,
@@ -24,6 +25,7 @@ class Counter extends Component {
       start: "Let's start",
       tryAgain: "Your offer is too low, try again",
       won: "Great, We have a deal!",
+      generous: "You are too generous, but it would not be fair.",
       lost: "I am sorry, no deal reached",
     },
   };
@@ -168,7 +170,7 @@ class Counter extends Component {
 
             <div className="col-sm">
               <h4>
-                Propose a Counter offer: Step
+                Propose a Counter Offer: Step
                 <span className="badge badge-pill badge-info ml-1 mr-5">
                   {this.state.counterStep}
                 </span>
@@ -264,6 +266,7 @@ class Counter extends Component {
 
   setStoreMessage() {
     if (this.state.isDeal) return this.state.messageCenter.won;
+    else if (this.state.isGenerous) return this.state.messageCenter.generous;
     else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
       return this.state.messageCenter.start;
     else if (
@@ -297,9 +300,10 @@ class Counter extends Component {
       });
     } else
       this.setState({
-        ourOffer:
+        ourOffer: (
           Number(this.state.ourOffer) +
-          Number(this.state.ourOffer * this.state.aggressor.na7),
+          Number(this.state.ourOffer * this.state.aggressor.na7)
+        ).toFixed(2),
       });
   }
 }
