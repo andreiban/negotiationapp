@@ -4,8 +4,8 @@ import HeaderSection from "./header-section";
 let initialstate = {};
 class Counter extends Component {
   state = {
-    minimumValuePercent: 0.8,
-    cartValue: (50 + Math.random() * 100).toFixed(),
+    minimumValuePercent: 0.75,
+    cartValue: Number((50 + Math.random() * 100).toFixed()),
     acceptedOffer: false,
     cartMinValue: 0,
     isSetCartMinValue: false,
@@ -18,14 +18,16 @@ class Counter extends Component {
     ourOffer: 0,
     youSaveValue: 0,
     aggressor: {
-      na11: (-0.02 - Math.random() * 0.005).toFixed(2),
-      na7: (-0.04 - Math.random() * 0.005).toFixed(2),
+      na0: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
+      na01: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
+      na11: Number((-0.02 - Math.random() * 0.005).toFixed(2)),
+      na7: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
     },
     messageCenter: {
       start: "Let's start",
       tryAgain: "Your offer is too low, try again",
       won: "Great, We have a deal!",
-      generous: "You are too generous, but it would not be fair.",
+      generous: "You are too generous, but it would not be fair...",
       lost: "I am sorry, no deal reached",
     },
   };
@@ -39,6 +41,7 @@ class Counter extends Component {
       cartValue: this.state.cartValue,
       isSetCartMinValue: this.state.isSetCartMinValue,
       isDeal: this.state.isDeal,
+      isGenerous: this.state.isGenerous,
       cartMinValue: (
         this.state.cartValue * this.state.minimumValuePercent
       ).toFixed(2),
@@ -65,13 +68,13 @@ class Counter extends Component {
     });
   };
 
-  handleSubmit = (event) => {
+  handleSubmitMinPrice = (event) => {
     event.preventDefault();
     this.setState({
       isSetCartMinValue: true,
       ourOffer:
-        Number(this.state.cartMinValue) +
-        Number(this.state.cartMinValue * this.state.aggressor.na11),
+        Number(this.state.cartValue) +
+        Number(this.state.cartValue * this.state.aggressor.na11),
     });
     const data = this.state;
     console.log(data);
@@ -86,7 +89,16 @@ class Counter extends Component {
   handleSubmitCounter = (event) => {
     event.preventDefault();
     console.log("Run CounterOffer");
-    if (Number(this.state.counterOffer) >= Number(this.state.cartMinValue)) {
+    if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
+      console.log("in generous");
+      this.setState({
+        isGenerous: true,
+      });
+      this.setStoreMessage();
+    } else if (
+      Number(this.state.counterOffer) >= Number(this.state.cartMinValue)
+    ) {
+      console.log("is deal true");
       this.setState({
         isDeal: true,
       });
@@ -96,14 +108,10 @@ class Counter extends Component {
       });
       this.newOfferGenerator(this.state.counterStep);
     }
-    const data = this.state;
-    console.log(data);
   };
 
   handleInputChange = (event) => {
     event.preventDefault();
-    console.log(event.target.name);
-    console.log(event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -126,7 +134,7 @@ class Counter extends Component {
               </h5>
               <h5>
                 Set Minimum Price (Hidden)
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmitMinPrice}>
                   <input
                     className="form-control w-25 d-inline"
                     type="decimal"
@@ -265,9 +273,11 @@ class Counter extends Component {
   }
 
   setStoreMessage() {
+    console.log("in store message");
     if (this.state.isDeal) return this.state.messageCenter.won;
-    else if (this.state.isGenerous) return this.state.messageCenter.generous;
-    else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
+    else if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
+      return this.state.messageCenter.generous;
+    } else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
       return this.state.messageCenter.start;
     else if (
       this.state.counterStep <= this.state.maxSteps &&
@@ -294,9 +304,21 @@ class Counter extends Component {
       Number(this.state.ourOffer) +
       Number(this.state.ourOffer * this.state.aggressor.na7);
 
-    if (check < this.state.cartMinValue) {
+    if (step > 0 && step < 3 && Number(this.state.cartValue < 50))
       this.setState({
-        ourOffer: this.state.cartMinValue,
+        ourOffer: (
+          Number(this.state.ourOffer) + Number(this.state.aggressor.na0)
+        ).toFixed(2),
+      });
+    else if (step > 0 && step < 3 && Number(this.state.cartValue > 50))
+      this.setState({
+        ourOffer: (
+          Number(this.state.ourOffer) + Number(this.state.aggressor.na01)
+        ).toFixed(2),
+      });
+    else if (Number(check) < Number(this.state.cartMinValue)) {
+      this.setState({
+        ourOffer: Number(this.state.cartMinValue),
       });
     } else
       this.setState({
