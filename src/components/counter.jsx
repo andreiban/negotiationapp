@@ -86,7 +86,7 @@ class Counter extends Component {
   handleSubmitCounter = (event) => {
     event.preventDefault();
     console.log("Run CounterOffer");
-    if (this.state.counterOffer >= this.state.cartMinValue) {
+    if (Number(this.state.counterOffer) >= Number(this.state.cartMinValue)) {
       this.setState({
         isDeal: true,
       });
