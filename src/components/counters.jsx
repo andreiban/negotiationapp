@@ -4,7 +4,7 @@ import HeaderSection from "./header-section";
 
 class Counters extends Component {
   render() {
-    //object destructuring
+    //object destructuring new
     const { onReset, counters, onDelete, onIncrement } = this.props;
 
     return (
