@@ -5,7 +5,7 @@ import HeaderSection from "./header-section";
 class Counters extends Component {
   render() {
     //object destructuring
-    const { onReset, counters, onDelete, onIncrement } = this.props;
+    const { onReset, aggresion, counters, onDelete, onIncrement } = this.props;
 
     return (
       <div>
@@ -15,6 +15,7 @@ class Counters extends Component {
             onDelete={onDelete}
             onIncrement={onIncrement}
             counter={counter}
+            aggressionlvl={aggresion}
           ></Counter>
         ))}
       </div>

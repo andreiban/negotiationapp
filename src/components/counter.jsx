@@ -4,7 +4,7 @@ import HeaderSection from "./header-section";
 let initialstate = {};
 class Counter extends Component {
   state = {
-    minimumValuePercent: 0.75,
+    minimumValuePercent: 0.8,
     cartValue: Number((50 + Math.random() * 100).toFixed()),
     acceptedOffer: false,
     cartMinValue: 0,
@@ -99,6 +99,7 @@ class Counter extends Component {
       Number(this.state.counterOffer) >= Number(this.state.cartMinValue)
     ) {
       console.log("is deal true");
+      this.props.counter.value = this.state.counterOffer;
       this.setState({
         isDeal: true,
       });
@@ -124,6 +125,7 @@ class Counter extends Component {
       <React.Fragment>
         <HeaderSection />
         <div className="jumbotron">
+          {this.props.aggressionlvl}
           <div className="row">
             <div className="col-sm">
               <h5>
@@ -137,7 +139,7 @@ class Counter extends Component {
                 <form onSubmit={this.handleSubmitMinPrice}>
                   <input
                     className="form-control w-25 d-inline"
-                    type="decimal"
+                    type="number"
                     placeholder={this.state.cartMinValue}
                     step="0.01"
                     min="0"
@@ -154,7 +156,7 @@ class Counter extends Component {
                 <label>Our Offer:</label>
                 <br></br>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control w-25 d-inline"
                   id="ourOffer"
                   defaultValue={this.state.ourOffer}
@@ -169,7 +171,7 @@ class Counter extends Component {
               </div>
               <label>Your Offer:</label>
               <input
-                type="text"
+                type="number"
                 className="form-control w-25"
                 id="yourOffer"
                 defaultValue={this.state.counterOffer}
@@ -187,7 +189,7 @@ class Counter extends Component {
                 <div>
                   <label className="d-inline">Your Counter Offer:</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control w-25 d-inline"
                     name="counterOffer"
                     min="0"

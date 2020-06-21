@@ -2,6 +2,25 @@ import React, { Component } from "react";
 import Navbar from "./components/navbar";
 import Counters from "./components/counters";
 import "./App.css";
+import Dropdown from "./components/dropdown";
+
+const items = [
+  {
+    id: 1,
+    value: "Aggresion Lvl1",
+    aggresion: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
+  },
+  {
+    id: 2,
+    value: "Aggresion Lvl2",
+    aggresion: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
+  },
+  {
+    id: 3,
+    value: "Aggresion Lvl3",
+    aggresion: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
+  },
+];
 
 class App extends Component {
   state = {
@@ -42,7 +61,6 @@ class App extends Component {
   }
 
   handleIncrement = (counter) => {
-    console.log(counter);
     const counters = [...this.state.counters]; //clones array
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
@@ -64,20 +82,35 @@ class App extends Component {
     this.setState({ counters });
   };
 
+  handleSelectedItem = (evt) => {
+    this.setState({
+      navAggresivity: evt,
+    });
+    console.log("In Parent:" + evt);
+  };
+
   render() {
     console.log("App - Rendered");
     return (
       <React.Fragment>
+        <Dropdown
+          title="Select Aggresivity level"
+          onSelectedItem={this.handleSelectedItem}
+          items={items}
+        />
         <Navbar
+          items={items}
           totalCounters={this.state.counters.filter((c) => c.value > 0).length}
           navAggresivity={this.state.navAggresivity}
         />
+
         <main className="container">
           <Counters
             counters={this.state.counters}
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
+            aggresion={this.state.navAggresivity}
           />
         </main>
       </React.Fragment>
