@@ -140,7 +140,6 @@ class Counter extends Component {
       <React.Fragment>
         <HeaderSection />
         <div className="jumbotron">
-          {this.props.aggressionlvl}
           <div className="row">
             <div className="col-sm">
               <h5>
