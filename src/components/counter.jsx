@@ -7,6 +7,7 @@ class Counter extends Component {
     minimumValuePercent: 0.8,
     cartValue: Number((50 + Math.random() * 100).toFixed()),
     acceptedOffer: false,
+    aggressionlvl: 0,
     cartMinValue: 0,
     isSetCartMinValue: false,
     isDeal: false,
@@ -24,6 +25,20 @@ class Counter extends Component {
       na7: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
     },
     messageCenter: {
+      firstOffers: [
+        "I want to meet your demands, what do you think of this price?",
+        "They are good products, they are worth more than what you offer",
+        "We can make a deal, but raise your offer",
+        "These products are worth more, come on we can make a good deal",
+      ],
+      finalStage: [
+        "Let's make one last effort, we're about to come to an agreement",
+        "Let's not miss this chance to close the deal, how about this price?",
+      ],
+      lastOffer: [
+        "I can't make you a better price than this.",
+        "Take this chance, it's the last offer.",
+      ],
       start: "Let's start",
       tryAgain: "Your offer is too low, try again",
       won: "Great, We have a deal!",
@@ -282,10 +297,26 @@ class Counter extends Component {
     } else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
       return this.state.messageCenter.start;
     else if (
+      this.state.counterStep === Number(this.state.maxSteps - 1) &&
+      !this.state.acceptedOffer
+    )
+      return this.state.messageCenter.finalStage[
+        Math.floor(Math.random() * this.state.messageCenter.finalStage.length)
+      ];
+    else if (
+      this.state.counterStep === Number(this.state.maxSteps) &&
+      !this.state.acceptedOffer
+    )
+      return this.state.messageCenter.lastOffer[
+        Math.floor(Math.random() * this.state.messageCenter.lastOffer.length)
+      ];
+    else if (
       this.state.counterStep <= this.state.maxSteps &&
       !this.state.acceptedOffer
     )
-      return this.state.messageCenter.tryAgain;
+      return this.state.messageCenter.firstOffers[
+        Math.floor(Math.random() * this.state.messageCenter.firstOffers.length)
+      ];
     else if (
       this.state.counterStep <= this.state.maxSteps &&
       this.state.acceptedOffer
@@ -322,13 +353,15 @@ class Counter extends Component {
       this.setState({
         ourOffer: Number(this.state.cartMinValue),
       });
-    } else
+    } else {
+      console.log(this.props.aggressionlvl);
       this.setState({
         ourOffer: (
           Number(this.state.ourOffer) +
-          Number(this.state.ourOffer * this.state.aggressor.na7)
+          Number(this.state.ourOffer * this.props.aggressionlvl)
         ).toFixed(2),
       });
+    }
   }
 }
 

@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import onClickOutside from "react-onclickoutside";
+import { FaCheck } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
 
-function Dropdown({ title, onSelectedItem, items = [], multiselect = false }) {
-  const [open, setOpen] = useState(true);
+function Dropdown({ title, onSelectedItem, items, multiSelect = false }) {
+  const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState([]);
   const toggle = () => setOpen(!open);
   Dropdown.handleClickOutside = () => setOpen(false);
 
   function handleOnClick(item) {
+    console.log(items);
     if (!selection.some((current) => current.id === item.id)) {
-      if (!multiselect) {
+      if (!multiSelect) {
         setSelection([item]);
         onSelectedItem(item.id);
-        console.log(item.value);
-      } else if (multiselect) {
+      } else if (multiSelect) {
         setSelection([...selection, item]);
       }
     } else {
       let selectionAfterRemoval = selection;
-      selectionAfterRemoval.filter((current) => current.id !== item.id);
+      selectionAfterRemoval = selectionAfterRemoval.filter(
+        (current) => current.id !== item.id
+      );
       setSelection([...selectionAfterRemoval]);
     }
   }
@@ -43,17 +48,16 @@ function Dropdown({ title, onSelectedItem, items = [], multiselect = false }) {
           <p className="dd-header__title--bold">{title}</p>
         </div>
         <div className="dd-header__action">
-          <p>{open ? "Close" : "Open"}</p>
+          <p>{open ? <FaChevronUp /> : <FaChevronDown />}</p>
         </div>
       </div>
-
       {open && (
         <ul className="dd-list">
           {items.map((item) => (
             <li className="dd-list-item" key={item.id}>
               <button type="button" onClick={() => handleOnClick(item)}>
                 <span>{item.value}</span>
-                <span>{isItemInSelection(item) && "Selected"}</span>
+                <span>{isItemInSelection(item) && <FaCheck />}</span>
               </button>
             </li>
           ))}

@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import Dropdown from "./dropdown";
 
 //stateless functional component
-const NavBar = ({ items, navAggresivity, totalCounters, onReset }) => {
+
+const NavBar = ({
+  title,
+  items,
+  onSelectedItem,
+  navAggresivity,
+  totalCounters,
+  onReset,
+}) => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-light bg-light">
@@ -16,22 +24,15 @@ const NavBar = ({ items, navAggresivity, totalCounters, onReset }) => {
             {totalCounters + 1}
           </span>
         </a>
-        <div>
-          <Dropdown
-            title="Select Aggresivity level"
-            items={items}
-            multiSelect
-          />
-          <button
-            onClick={onReset}
-            className="btn btn-primary btn-small m-2 d-inline"
-          >
-            Select
-          </button>
-        </div>
+
+        <button onClick={onReset} className="btn btn-primary btn-small m-2">
+          Reset
+        </button>
       </nav>
     </React.Fragment>
   );
 };
 
 export default NavBar;
+
+//   <Dropdown title={title} onSelectedItem={onSelectedItem} items={items} />
