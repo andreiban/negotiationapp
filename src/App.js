@@ -7,102 +7,102 @@ import Dropdown from "./components/dropdown";
 const items = [
   {
     id: 1,
-    value: "Aggresion Lvl1",
+    value: "Aggression Lvl1",
     aggresion: Number((-0.07 - Math.random() * 0.075).toFixed(2)),
   },
   {
     id: 2,
-    value: "Aggresion Lvl2",
+    value: "Aggression Lvl2",
     aggresion: Number((-0.065 - Math.random() * 0.07).toFixed(2)),
   },
   {
     id: 3,
-    value: "Aggresion Lvl3",
+    value: "Aggression Lvl3",
     aggresion: Number((-0.06 - Math.random() * 0.065).toFixed(2)),
   },
   {
     id: 4,
-    value: "Aggresion Lvl4",
+    value: "Aggression Lvl4",
     aggresion: Number((-0.055 - Math.random() * 0.06).toFixed(2)),
   },
   {
     id: 5,
-    value: "Aggresion Lvl5",
+    value: "Aggression Lvl5",
     aggresion: Number((-0.05 - Math.random() * 0.055).toFixed(2)),
   },
   {
     id: 6,
-    value: "Aggresion Lvl6",
+    value: "Aggression Lvl6",
     aggresion: Number((-0.045 - Math.random() * 0.05).toFixed(2)),
   },
   {
     id: 7,
-    value: "Aggresion Lvl7",
+    value: "Aggression Lvl7",
     aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
   },
   {
     id: 8,
-    value: "Aggresion Lvl8",
+    value: "Aggression Lvl8",
     aggresion: Number((-0.035 - Math.random() * 0.04).toFixed(2)),
   },
   {
     id: 9,
-    value: "Aggresion Lvl9",
+    value: "Aggression Lvl9",
     aggresion: Number((-0.03 - Math.random() * 0.035).toFixed(2)),
   },
   {
     id: 10,
-    value: "Aggresion Lvl10",
+    value: "Aggression Lvl10",
     aggresion: Number((-0.025 - Math.random() * 0.03).toFixed(2)),
   },
   {
     id: 11,
-    value: "Aggresion Lvl11",
+    value: "Aggression Lvl11",
     aggresion: Number((-0.02 - Math.random() * 0.025).toFixed(2)),
   },
   {
     id: 12,
-    value: "Aggresion Lvl12",
+    value: "Aggression Lvl12",
     aggresion: Number((-0.015 - Math.random() * 0.02).toFixed(2)),
   },
   {
     id: 13,
-    value: "Aggresion Lvl13",
+    value: "Aggression Lvl13",
     aggresion: Number((-0.01 - Math.random() * 0.015).toFixed(2)),
   },
   {
     id: 14,
-    value: "Aggresion Lvl14",
+    value: "Aggression Lvl14",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 15,
-    value: "Aggresion Lvl15",
+    value: "Aggression Lvl15",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 16,
-    value: "Aggresion Lvl16",
+    value: "Aggression Lvl16",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 17,
-    value: "Aggresion Lvl17",
+    value: "Aggression Lvl17",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 18,
-    value: "Aggresion Lvl18",
+    value: "Aggression Lvl18",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 19,
-    value: "Aggresion Lvl19",
+    value: "Aggression Lvl19",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
   {
     id: 20,
-    value: "Aggresion Lvl20",
+    value: "Aggression Lvl20",
     aggresion: Number((-0.0095 - Math.random() * 0.01).toFixed(2)),
   },
 ];
@@ -182,7 +182,7 @@ class App extends Component {
       <React.Fragment>
         <nav className="navbar navbar-light bg-light">
           <a className="navbar-brand">
-            <span className="mr-1">Negotium - Aggresivity Level</span>
+            <span className="mr-1">Negotium - Aggression Level</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.navAggresivity}
             </span>
@@ -192,7 +192,7 @@ class App extends Component {
             </span>
           </a>
           <Dropdown
-            title="Select Aggresivitiy level"
+            title="Select Aggression Level"
             onSelectedItem={this.handleSelectedItem}
             items={items}
           />

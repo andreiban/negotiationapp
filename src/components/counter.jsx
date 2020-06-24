@@ -26,9 +26,9 @@ class Counter extends Component {
     },
     messageCenter: {
       firstOffers: [
-        "I want to meet your demands, what do you think of this price?",
-        "They are good products, they are worth more than what you offer",
-        "We can make a deal, but raise your offer",
+        "I'd like to satisfy your demands. What do you think of this price?",
+        "These are good products and are worth more than your offer",
+        "We can make a deal but you need to make a higher bid",
         "These products are worth more, come on we can make a good deal",
       ],
       finalStage: [
@@ -37,7 +37,7 @@ class Counter extends Component {
       ],
       lastOffer: [
         "I can't make you a better price than this.",
-        "Take this chance, it's the last offer.",
+        "Take this chance, it's our last offer.",
       ],
       start: "Let's start",
       tryAgain: "Your offer is too low, try again",
