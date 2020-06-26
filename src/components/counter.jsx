@@ -107,12 +107,14 @@ class Counter extends Component {
   handleSubmitCounter = (event) => {
     event.preventDefault();
     console.log("Run CounterOffer");
-    if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
+    this.setState({
+      yourOffer: this.state.counterOffer,
+    });
+    if (Number(this.state.yourOffer) > Number(this.state.cartValue)) {
       console.log("in generous");
       this.setState({
         isGenerous: true,
       });
-      this.setStoreMessage();
     } else if (
       Number(this.state.counterOffer) >= Number(this.state.cartMinValue)
     ) {
@@ -122,6 +124,7 @@ class Counter extends Component {
         isDeal: true,
       });
     } else {
+      console.log("increase step");
       this.setState({
         counterStep: this.state.counterStep + 1,
       });
@@ -134,11 +137,6 @@ class Counter extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  };
-  handleInputChangeOurOffer = (event) => {
-    event.preventDefault();
-    console.log(event.target.value);
-    this.setStoreMessage(event.target.value);
   };
 
   /*componentDidMount() {
@@ -234,7 +232,7 @@ class Counter extends Component {
                     name="counterOffer"
                     min="0"
                     max={this.state.cartValue}
-                    onChange={this.handleInputChangeOurOffer}
+                    onChange={this.handleInputChange}
                   ></input>
                   <button
                     className={this.getButtonClasses()}
@@ -325,10 +323,7 @@ class Counter extends Component {
   setStoreMessage(evt) {
     console.log("in store message");
     if (this.state.isDeal) return this.state.messageCenter.won;
-    else if (Number(evt) > Number(this.state.cartValue)) {
-      console.log("herer");
-      return this.state.messageCenter.generous;
-    } else if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
+    else if (Number(this.state.yourOffer) > Number(this.state.cartValue)) {
       return this.state.messageCenter.generous;
     } else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
       return this.state.messageCenter.start;
