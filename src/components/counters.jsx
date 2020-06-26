@@ -6,7 +6,7 @@ class Counters extends Component {
   render() {
     //object destructuring
     const { onReset, aggresion, counters, onDelete, onIncrement } = this.props;
-
+    console.log(counters);
     return (
       <div>
         {counters.map((counter) => (

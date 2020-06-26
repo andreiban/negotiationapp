@@ -15,10 +15,8 @@ const NavBar = ({
     <React.Fragment>
       <nav className="navbar navbar-light bg-light">
         <a className="navbar-brand" href="#">
-          <span className="mr-1">Negotium - Aggresivity Level</span>
-          <span className="badge badge-pill badge-secondary mr-5">
-            {navAggresivity}
-          </span>
+          <span className="mr-1">Negotium - Aggressiveness Level</span>
+          <span className="badge badge-pill badge-secondary mr-5">{7}</span>
           <span className="mr-1">Clients</span>
           <span className="badge badge-pill badge-secondary mr-5">
             {totalCounters + 1}

@@ -138,3 +138,24 @@ body {
   font-weight: bold;
   background-color: #ccc;
 }
+
+/*progress bar*/
+.progress {
+  background: darkorange;
+  background-color: darkorange !important;
+}
+
+.progress-bar-background {
+  background-color: darkorange;
+}
+.progress-width {
+  width: 12.5%;
+}
+
+.progress-bar-width {
+  width: 50%;
+}
+
+.progress-hide {
+  display: none !important;
+}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import HeaderSection from "./header-section";
+import StatusBar from "./statusbar";
 
 let initialstate = {};
+let valueCart = 0;
 class Counter extends Component {
   state = {
     minimumValuePercent: 0.8,
@@ -27,20 +29,20 @@ class Counter extends Component {
     messageCenter: {
       firstOffers: [
         "I'd like to satisfy your demands. What do you think of this price?",
-        "These are good products and are worth more than your offer",
-        "We can make a deal but you need to make a higher bid",
-        "These products are worth more, come on we can make a good deal",
+        "These are good products and are worth more than your offer!",
+        "We can make a deal but you need to make a higher bid!",
+        "These products are worth more, come on we can make a good deal!",
       ],
       finalStage: [
-        "Let's make one last effort, we're about to come to an agreement",
+        "Let's make one last effort, we're about to come to an agreement!",
         "Let's not miss this chance to close the deal, how about this price?",
       ],
       lastOffer: [
-        "I can't make you a better price than this.",
-        "Take this chance, it's our last offer.",
+        "I can't make you a better price than this!",
+        "Take this chance, it's our last offer!",
       ],
       start: "Let's start",
-      tryAgain: "Your offer is too low, try again",
+      tryAgain: "Your offer is too low, try again...",
       won: "Great, We have a deal!",
       generous: "You are too generous, but it would not be fair...",
       lost: "I am sorry, no deal reached",
@@ -50,6 +52,7 @@ class Counter extends Component {
   constructor(props) {
     super(props);
 
+    valueCart = this.state.cartValue;
     this.state = {
       minimumValuePercent: this.state.minimumValuePercent,
       acceptedOffer: this.state.acceptedOffer,
@@ -132,10 +135,27 @@ class Counter extends Component {
       [event.target.name]: event.target.value,
     });
   };
+  handleInputChangeOurOffer = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+    this.setStoreMessage(event.target.value);
+  };
 
+  /*componentDidMount() {
+    var htmlInput = document.getElementById("input-counter");
+    console.log(valueCart);
+    htmlInput.oninvalid = function (e) {
+      e.target.setCustomValidity(
+        "You are too generous, but it would not be fair..."
+      );
+      htmlInput.oninput = function (e) {
+        e.target.setCustomValidity(" ");
+      };
+    };
+  }
+*/
   render() {
     const { cartMinValue } = this.state;
-    console.log("this" + this.state.firstOffer);
     return (
       <React.Fragment>
         <HeaderSection />
@@ -152,11 +172,12 @@ class Counter extends Component {
                 Set Minimum Price (Hidden)
                 <form onSubmit={this.handleSubmitMinPrice}>
                   <input
+                    id="input-min-price"
                     className="form-control w-25 d-inline"
                     type="number"
                     placeholder={this.state.cartMinValue}
                     step="0.01"
-                    min="0"
+                    min="1"
                     max={this.state.cartValue}
                     name="cartMinValue"
                     onChange={this.handleInputChange}
@@ -173,8 +194,12 @@ class Counter extends Component {
                   type="number"
                   className="form-control w-25 d-inline"
                   id="ourOffer"
-                  defaultValue={this.state.ourOffer}
-                  value={this.state.ourOffer}
+                  defaultValue={
+                    this.props.aggressionlvl === 0 ? "" : this.state.ourOffer
+                  }
+                  value={
+                    this.props.aggressionlvl === 0 ? "" : this.state.ourOffer
+                  }
                 ></input>
                 <button
                   onClick={this.handleAcceptedOffer}
@@ -203,16 +228,21 @@ class Counter extends Component {
                 <div>
                   <label className="d-inline">Your Counter Offer:</label>
                   <input
+                    id="input-counter"
                     type="number"
                     className="form-control w-25 d-inline"
                     name="counterOffer"
                     min="0"
                     max={this.state.cartValue}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleInputChangeOurOffer}
                   ></input>
                   <button
                     className={this.getButtonClasses()}
-                    disabled={this.getButtonDisabled()}
+                    disabled={
+                      this.props.aggressionlvl === 0
+                        ? "disabled"
+                        : this.getButtonDisabled()
+                    }
                   >
                     Counteroffer
                   </button>
@@ -241,6 +271,7 @@ class Counter extends Component {
   }
 
   /*
+   <StatusBar negotiationStep={this.state.counterStep} />
   <button
           onClick={() => this.props.onIncrement(this.props.counter)}
           className="btn btn-secondary btn-sm m-2"
@@ -285,13 +316,19 @@ class Counter extends Component {
   setAcceptedOffer() {}
 
   getButtonDisabled() {
-    return this.state.counterStep <= this.state.maxSteps ? "" : "disabled";
+    if (this.state.counterStep <= this.state.maxSteps) {
+      return "";
+    }
+    return "disabled";
   }
 
-  setStoreMessage() {
+  setStoreMessage(evt) {
     console.log("in store message");
     if (this.state.isDeal) return this.state.messageCenter.won;
-    else if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
+    else if (Number(evt) > Number(this.state.cartValue)) {
+      console.log("herer");
+      return this.state.messageCenter.generous;
+    } else if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
       return this.state.messageCenter.generous;
     } else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
       return this.state.messageCenter.start;

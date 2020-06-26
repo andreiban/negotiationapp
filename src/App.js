@@ -182,9 +182,11 @@ class App extends Component {
       <React.Fragment>
         <nav className="navbar navbar-light bg-light">
           <a className="navbar-brand">
-            <span className="mr-1">Negotium - Aggression Level</span>
+            <span className="mr-1">Negotium - Aggressiveness Level</span>
             <span className="badge badge-pill badge-secondary mr-5">
-              {this.state.navAggresivity}
+              {this.state.navAggresivity > 0
+                ? this.state.navAggresivity
+                : "N/A"}
             </span>
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
@@ -192,7 +194,7 @@ class App extends Component {
             </span>
           </a>
           <Dropdown
-            title="Select Aggression Level"
+            title="Select Aggressiveness Level"
             onSelectedItem={this.handleSelectedItem}
             items={items}
           />
@@ -212,11 +214,13 @@ class App extends Component {
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
             aggresion={
-              items[
-                this.state.navAggresivity === 0
-                  ? 1
-                  : Number(this.state.navAggresivity - 1)
-              ].aggresion
+              this.state.navAggresivity < 1
+                ? 0
+                : items[
+                    this.state.navAggresivity === 0
+                      ? 1
+                      : Number(this.state.navAggresivity - 1)
+                  ].aggresion
             }
           />
         </main>
