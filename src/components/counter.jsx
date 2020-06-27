@@ -15,6 +15,7 @@ class Counter extends Component {
     isDeal: false,
     isGenerous: false,
     counterStep: 0,
+    nextStep: 0,
     maxSteps: 7,
     firstOffer: 0,
     yourOffer: 0,
@@ -67,6 +68,7 @@ class Counter extends Component {
       youSaveValue: this.state.youSaveValue,
       maxSteps: this.state.maxSteps,
       messageCenter: this.state.messageCenter,
+      nextStep: this.state.nextStep,
       aggressor: this.state.aggressor,
       ourOffer:
         Number(this.state.cartValue) +
@@ -109,6 +111,7 @@ class Counter extends Component {
     console.log("Run CounterOffer");
     this.setState({
       yourOffer: this.state.counterOffer,
+      nextStep: this.state.nextStep + 1,
     });
     if (Number(this.state.yourOffer) > Number(this.state.cartValue)) {
       console.log("in generous");
@@ -174,7 +177,6 @@ class Counter extends Component {
                     className="form-control w-25 d-inline"
                     type="number"
                     placeholder={this.state.cartMinValue}
-                    step="0.01"
                     min="1"
                     max={this.state.cartValue}
                     name="cartMinValue"
@@ -261,6 +263,7 @@ class Counter extends Component {
             </div>
           </div>
           <div className="row d-flex justify-content-center">
+            <StatusBar progress={this.state.counterStep} />
             <h5>{this.setStoreMessage()}</h5>
           </div>
         </div>
@@ -268,28 +271,6 @@ class Counter extends Component {
     );
   }
 
-  /*
-   <StatusBar negotiationStep={this.state.counterStep} />
-  <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm m-2"
-           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        >
-          Increment
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger bt-sm m-2"
-        >
-          Delete
-        </button>
-  //event handler with binding - Solution 1
-  handleIncrement() {
-    console.log("Increment Clicked", this.state.count);
-  }
-*/
-
-  //conditional formatting
   renderTags() {
     if (this.state.tags.length === 0) return <p>There are no tags</p>;
 
@@ -320,7 +301,7 @@ class Counter extends Component {
     return "disabled";
   }
 
-  setStoreMessage(evt) {
+  setStoreMessage() {
     console.log("in store message");
     if (this.state.isDeal) return this.state.messageCenter.won;
     else if (Number(this.state.yourOffer) > Number(this.state.cartValue)) {

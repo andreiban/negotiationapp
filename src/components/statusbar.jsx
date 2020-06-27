@@ -4,46 +4,63 @@ import { FaLastfmSquare } from "react-icons/fa";
 
 class StatusBar extends Component {
   state = {
-    currentStep: 0,
-    bars: [
-      { id: 1, value: 1, hide: true },
-      { id: 2, value: 2, hide: true },
-      { id: 3, value: 3, hide: true },
-      { id: 4, value: 4, hide: true },
-      { id: 5, value: 5, hide: true },
-      { id: 6, value: 6, hide: true },
-      { id: 7, value: 7, hide: true },
-      { id: 8, value: 8, hide: true },
-    ],
+    barsArray: [],
+  };
+
+  constructor(props) {
+    super(props);
+    this.barsID = 0;
+    this.Body = "";
+
+    this.state = {
+      barsArray: [],
+    };
+  }
+
+  deleteEvent = (index) => {
+    const copyBarsArray = Object.assign([], this.state.barsArray);
+    copyBarsArray.splice(index, 1);
+    this.setState({
+      barsArray: copyBarsArray,
+    });
+  };
+
+  setBars = (element) => {
+    this.Body = element.target.value;
+  };
+
+  addBars = () => {
+    this.barsID = this.barsID + 1;
+    const copyBarsArray = Object.assign([], this.state.barsArray);
+    copyBarsArray.push({
+      id: this.barsID,
+      body: this.Body,
+    });
+    this.setState({
+      barsArray: copyBarsArray,
+    });
   };
 
   render() {
-    const { negotiationStep } = this.props;
-    const { bars } = this.state;
-    console.log(bars);
-    this.setState((state) => {
-      const list = state.bars.map((item, j) => {
-        if (j === negotiationStep) {
-          return (item.hide = false);
-        } else {
-          return item;
-        }
-      });
-    });
+    const { progress } = this.props;
+    if (progress > this.barsID) {
+      this.addBars();
+      this.barsID = progress;
+      console.log("id-ul", this.barsID);
+    }
     return (
-      <div class="container d-flex ">
-        <div class="progress w-50 justifiy-content-center">
-          {bars.map((bar, j) =>
-            j === negotiationStep ? (
-              ""
-            ) : (
+      <div class="container col-xs-12 d-flex justify-content-center">
+        <div class="progress progress-bar-width ">
+          {this.state.barsArray.map((bar, index) => {
+            return (
               <StatusStep
-                key={bars.id}
-                number={bars.value}
-                hide={bars.hide}
-              ></StatusStep>
-            )
-          )}
+                key={bar.id}
+                id={bar.id}
+                body={bar.body}
+                delete={this.deleteEvent.bind(this, index)}
+              />
+            );
+          })}
         </div>
       </div>
     );

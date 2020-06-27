@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 
-function StatusStep({ number, hide }) {
-  let classValue = hide
-    ? "mr-1 progress-bar progress-bar-warning progress-width bg-warning"
-    : "mr-1 progress-bar progress-bar-warning progress-width bg-warning progress-hide";
+class StatusStep extends Component {
+  state = {};
 
-  if (number >= 5 && number <= 7) {
+  constructor(props) {
+    super(props);
+    this.classDefault = "progress-bar progress-bar-success progress-width ";
+  }
+
+  render() {
+    console.log(this.classValue);
     return (
-      <div className={classValue} role="progressbar">
-        {number}
+      <div
+        key={this.props.id}
+        className={this.classDefault.concat(
+          this.props.id > 7
+            ? "bg-danger"
+            : this.props.id > 4
+            ? "bg-warning mr-1"
+            : "mr-1"
+        )}
+        role="progressbar"
+      >
+        {this.props.id}
       </div>
     );
-  } else if (number > 7) {
-    return (
-      <div className={classValue} role="progressbar">
-        {number}
-      </div>
-    );
-  } else
-    return (
-      <div className={classValue} role="progressbar">
-        {number}
-      </div>
-    );
+  }
 }
 
 export default StatusStep;

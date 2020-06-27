@@ -70,6 +70,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.jumbotron {
+  backgorund-color: #f8f9fa;
+}
 .container {
   max-width: 1140px;
   width: 100%;
@@ -141,15 +145,15 @@ body {
 
 /*progress bar*/
 .progress {
-  background: darkorange;
-  background-color: darkorange !important;
+  background: #dee2e6;
+  background-color: #dee2e6 !important;
 }
 
 .progress-bar-background {
-  background-color: darkorange;
+  background-color: #dee2e6;
 }
 .progress-width {
-  width: 12.5%;
+  width: 11.8%;
 }
 
 .progress-bar-width {
@@ -158,4 +162,16 @@ body {
 
 .progress-hide {
   display: none !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
