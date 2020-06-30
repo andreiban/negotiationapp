@@ -56,7 +56,7 @@ function Dropdown2({ title, onSelectedItem, items, multiSelect = false }) {
           {items.map((item) => (
             <li className="dd-list-item" key={item.id}>
               <button type="button" onClick={() => handleOnClick(item)}>
-                <span>{item.value}</span>
+                <span>{item.show}</span>
                 <span>{isItemInSelection(item) && <FaCheck />}</span>
               </button>
             </li>

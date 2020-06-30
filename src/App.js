@@ -6,9 +6,9 @@ import Dropdown from "./components/dropdown";
 import Dropdown2 from "./components/dropdown2";
 
 const percentages = [
-  { id: 1, value: 0.8 },
-  { id: 2, value: 0.75 },
-  { id: 3, value: 0.7 },
+  { id: 1, show: "20%", value: 0.8 },
+  { id: 2, show: "25%", value: 0.75 },
+  { id: 3, show: "30%", value: 0.7 },
 ];
 const items = [
   {
