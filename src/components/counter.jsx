@@ -54,7 +54,6 @@ class Counter extends Component {
   constructor(props) {
     super(props);
 
-    console.log("in constructor", this.props.aggSetLevel);
     const seedValue =
       this.props.aggSetLevel < 5
         ? Number((-0.75 - Math.random() * 2).toFixed(2))
@@ -105,12 +104,12 @@ class Counter extends Component {
     console.log(this.props.aggSetLevel);
     const seedValue =
       this.props.aggSetLevel < 5
-        ? Number((-1.5 - Math.random() * 3).toFixed(2))
+        ? Number((-0.75 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 10
-        ? Number((-2.5 - Math.random() * 3).toFixed(2))
+        ? Number((-1.5 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 15
-        ? Number((-3.5 - Math.random() * 3).toFixed(2))
-        : Number((-4.5 - Math.random() * 3).toFixed(2));
+        ? Number((-2.25 - Math.random() * 2).toFixed(2))
+        : Number((-3 - Math.random() * 2).toFixed(2));
     console.log(seedValue);
     event.preventDefault();
     this.setState({
@@ -125,12 +124,12 @@ class Counter extends Component {
   setFirstValue() {
     const seedValue =
       this.props.aggSetLevel < 5
-        ? Number((-1.5 - Math.random() * 3).toFixed(2))
+        ? Number((-0.75 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 10
-        ? Number((-2.5 - Math.random() * 3).toFixed(2))
+        ? Number((-1.5 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 15
-        ? Number((-3.5 - Math.random() * 3).toFixed(2))
-        : Number((-4.5 - Math.random() * 3).toFixed(2));
+        ? Number((-2.25 - Math.random() * 2).toFixed(2))
+        : Number((-3 - Math.random() * 2).toFixed(2));
 
     return seedValue;
   }
