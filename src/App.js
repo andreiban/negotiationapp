@@ -214,36 +214,44 @@ class App extends Component {
     console.log("App - Rendered");
     return (
       <React.Fragment>
-        <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand">
+        <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
+          <div className="col-md-2 mb-2">
             <span className="mr-1">Negotium(V0.20) - Aggressiveness Level</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.navAggresivity > 0
                 ? this.state.navAggresivity
                 : "N/A"}
             </span>
+          </div>
+          <div className="col-md-1 mb-2">
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.counters.filter((c) => c.value > 0).length + 1}
             </span>
-          </a>
-          <Dropdown2
-            title="Discount %"
-            onSelectedItem={this.handleSelectedItem2}
-            items={percentages}
-          />
-          <Dropdown
-            title="Select Aggressiveness Level"
-            onSelectedItem={this.handleSelectedItem}
-            items={items}
-          />
-          <button
-            onClick={this.handleReset}
-            className="btn btn-primary btn-small m-2"
-          >
-            Reset
-          </button>
-        </nav>
+          </div>
+          <div className="col-md-3 mb-2">
+            <Dropdown2
+              title="Discount %"
+              onSelectedItem={this.handleSelectedItem2}
+              items={percentages}
+            />
+          </div>
+          <div className="col-md-3 mb-2 d-inline">
+            <Dropdown
+              title="Select Aggressiveness Level"
+              onSelectedItem={this.handleSelectedItem}
+              items={items}
+            />
+          </div>
+          <div className="col-md-1 mb-2 d-inline">
+            <button
+              onClick={this.handleReset}
+              className="btn btn-primary btn-small m-2"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
 
         <main className="container">
           {console.log(items[this.state.navAggresivity])}
