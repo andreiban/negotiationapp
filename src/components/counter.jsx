@@ -64,6 +64,7 @@ class Counter extends Component {
         : Number((-4.5 - Math.random() * 3).toFixed(2));
 
     valueCart = this.state.cartValue;
+    let temp = 0;
     this.state = {
       minimumValuePercent: this.state.minimumValuePercent,
       acceptedOffer: this.state.acceptedOffer,
@@ -113,7 +114,8 @@ class Counter extends Component {
     event.preventDefault();
     this.setState({
       isSetCartMinValue: true,
-      ourOffer: Number(this.state.cartValue) + seedValue,
+      ourOffer:
+        this.temp > 0 ? this.temp : Number(this.state.cartValue) + seedValue,
     });
     const data = this.state;
     console.log(data);
@@ -174,6 +176,13 @@ class Counter extends Component {
     });
   };
 
+  displayFirstOffer() {
+    const value = Number(this.state.cartValue + this.props.initialSeed).toFixed(
+      2
+    );
+    this.temp = value;
+    return value;
+  }
   /*componentDidMount() {
     var htmlInput = document.getElementById("input-counter");
     console.log(valueCart);
@@ -230,9 +239,7 @@ class Counter extends Component {
                     this.props.aggressionlvl === 0
                       ? ""
                       : this.state.counterStep < 1
-                      ? Number(
-                          this.state.cartValue + this.props.initialSeed
-                        ).toFixed(2)
+                      ? this.displayFirstOffer()
                       : Number(this.state.ourOffer).toFixed(2)
                   }
                 ></input>
