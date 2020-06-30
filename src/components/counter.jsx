@@ -56,12 +56,12 @@ class Counter extends Component {
 
     const seedValue =
       this.props.aggSetLevel < 5
-        ? Number((-0.75 - Math.random() * 2).toFixed(2))
+        ? Number((-0.75 - Math.random() * 1).toFixed(2))
         : this.props.aggSetLevel < 10
-        ? Number((-1.5 - Math.random() * 2).toFixed(2))
+        ? Number((-1.5 - Math.random() * 1.5).toFixed(2))
         : this.props.aggSetLevel < 15
         ? Number((-2.25 - Math.random() * 2).toFixed(2))
-        : Number((-3 - Math.random() * 2).toFixed(2));
+        : Number((-3 - Math.random() * 2.5).toFixed(2));
 
     valueCart = this.state.cartValue;
     let temp = 0;
@@ -391,13 +391,13 @@ class Counter extends Component {
     if (step > 0 && step < 3 && Number(this.state.cartValue < 50))
       this.setState({
         ourOffer: (
-          Number(this.state.ourOffer) + Number(this.state.aggressor.na0)
+          Number(this.state.ourOffer) + Number(this.state.aggressor.na7)
         ).toFixed(2),
       });
     else if (step > 0 && step < 3 && Number(this.state.cartValue > 50))
       this.setState({
         ourOffer: (
-          Number(this.state.ourOffer) + Number(this.state.aggressor.na01)
+          Number(this.state.ourOffer) + Number(this.state.aggressor.na7)
         ).toFixed(2),
       });
     else if (Number(check) < Number(this.state.cartMinValue)) {
