@@ -143,6 +143,10 @@ body {
   background-color: #ccc;
 }
 
+.dd-wrapper-width-important {
+  width: 50px !important;
+}
+
 /*progress bar*/
 .progress {
   background: #dee2e6;

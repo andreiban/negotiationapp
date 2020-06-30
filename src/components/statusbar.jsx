@@ -49,8 +49,8 @@ class StatusBar extends Component {
       console.log("id-ul", this.barsID);
     }
     return (
-      <div class="container col-xs-12 d-flex justify-content-center">
-        <div class="progress progress-bar-width ">
+      <div className="container col-xs-12 d-flex justify-content-center">
+        <div className="progress progress-bar-width ">
           {this.state.barsArray.map((bar, index) => {
             return (
               <StatusStep

@@ -13,6 +13,7 @@ class Counters extends Component {
       onDelete,
       onIncrement,
       initialSeed,
+      selectedPercentage,
     } = this.props;
     console.log("incounters" + initialSeed);
     return (
@@ -26,6 +27,7 @@ class Counters extends Component {
             aggSetLevel={aggSetLevel}
             aggressionlvl={aggresion}
             initialSeed={initialSeed}
+            selectedPercentage={selectedPercentage}
           ></Counter>
         ))}
       </div>

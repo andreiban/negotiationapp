@@ -3,7 +3,13 @@ import Navbar from "./components/navbar";
 import Counters from "./components/counters";
 import "./App.css";
 import Dropdown from "./components/dropdown";
+import Dropdown2 from "./components/dropdown2";
 
+const percentages = [
+  { id: 1, value: 0.8 },
+  { id: 2, value: 0.75 },
+  { id: 3, value: 0.7 },
+];
 const items = [
   {
     id: 1,
@@ -132,6 +138,7 @@ class App extends Component {
     navButtonReset: "Reset",
     navStatus: "Items",
     navAggresivity: 0,
+    selectedPercentage: 0,
     buttonAcceptOffer: "Accept",
     buttonCounterOffer: "CounterOffer",
     fieldCart: 0,
@@ -196,13 +203,20 @@ class App extends Component {
     console.log("In Parent:" + evt);
   };
 
+  handleSelectedItem2 = (evt) => {
+    this.setState({
+      selectedPercentage: evt,
+    });
+    console.log("In Parent:" + evt);
+  };
+
   render() {
     console.log("App - Rendered");
     return (
       <React.Fragment>
         <nav className="navbar navbar-light bg-light">
           <a className="navbar-brand">
-            <span className="mr-1">Negotium - Aggressiveness Level</span>
+            <span className="mr-1">Negotium(V0.20) - Aggressiveness Level</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.navAggresivity > 0
                 ? this.state.navAggresivity
@@ -213,6 +227,11 @@ class App extends Component {
               {this.state.counters.filter((c) => c.value > 0).length + 1}
             </span>
           </a>
+          <Dropdown2
+            title="Discount %"
+            onSelectedItem={this.handleSelectedItem2}
+            items={percentages}
+          />
           <Dropdown
             title="Select Aggressiveness Level"
             onSelectedItem={this.handleSelectedItem}
@@ -233,6 +252,11 @@ class App extends Component {
             onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
+            selectedPercentage={
+              this.state.selectedPercentage < 1
+                ? 1
+                : percentages[this.state.selectedPercentage - 1].value
+            }
             initialSeed={
               this.state.navAggresivity < 1
                 ? 0
