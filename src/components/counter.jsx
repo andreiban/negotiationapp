@@ -7,6 +7,7 @@ let valueCart = 0;
 class Counter extends Component {
   state = {
     minimumValuePercent: 0.8,
+
     cartValue: Number((30 + Math.random() * 150).toFixed()),
     acceptedOffer: false,
     aggressionlvl: 0,
@@ -56,12 +57,12 @@ class Counter extends Component {
     console.log("in constructor", this.props.aggSetLevel);
     const seedValue =
       this.props.aggSetLevel < 5
-        ? Number((-1.5 - Math.random() * 3).toFixed(2))
+        ? Number((-0.75 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 10
-        ? Number((-2.5 - Math.random() * 3).toFixed(2))
+        ? Number((-1.5 - Math.random() * 2).toFixed(2))
         : this.props.aggSetLevel < 15
-        ? Number((-3.5 - Math.random() * 3).toFixed(2))
-        : Number((-4.5 - Math.random() * 3).toFixed(2));
+        ? Number((-2.25 - Math.random() * 2).toFixed(2))
+        : Number((-3 - Math.random() * 2).toFixed(2));
 
     valueCart = this.state.cartValue;
     let temp = 0;
