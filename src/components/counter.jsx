@@ -7,10 +7,10 @@ import { FaUser } from "react-icons/fa";
 
 let initialstate = {};
 let valueCart = 0;
+let cartMinValueUpdate = 0;
 class Counter extends Component {
   state = {
     minimumValuePercent: 0.8,
-
     cartValue: Number((30 + Math.random() * 150).toFixed()),
     currentStoreMessage: "Let's Start!",
     acceptedOffer: false,
@@ -25,7 +25,7 @@ class Counter extends Component {
     firstOffer: 0,
     yourOffer: 0,
     ourOffer: 0,
-    youSaveValue: 0,
+    youSaveValue: "",
     aggressor: {
       na0: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
       na01: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
@@ -69,8 +69,9 @@ class Counter extends Component {
 
     valueCart = this.state.cartValue;
     let temp = 0;
+
     this.state = {
-      minimumValuePercent: this.props.selectedPercentage,
+      minimumValuePercent: this.state.minimumValuePercent,
       acceptedOffer: this.state.acceptedOffer,
       cartValue: this.state.cartValue,
       isSetCartMinValue: this.state.isSetCartMinValue,
@@ -79,9 +80,9 @@ class Counter extends Component {
       cartMinValue: (
         this.state.cartValue *
         Number(
-          this.props.selectedPercentage >= 1
-            ? this.state.minimumValuePercent
-            : this.props.selectedPercentage
+          this.props.selectedPercentage < 1
+            ? this.props.selectedPercentage
+            : this.state.minimumValuePercent
         )
       ).toFixed(2),
       counterStep: this.state.counterStep,
@@ -90,7 +91,7 @@ class Counter extends Component {
       messageCenter: this.state.messageCenter,
       nextStep: this.state.nextStep,
       aggressor: this.state.aggressor,
-      youSaveValue: 0,
+      youSaveValue: "",
       ourOffer:
         Number(this.state.cartValue) +
         (Number(this.state.cartValue) * seedValue) / 100,
@@ -102,13 +103,13 @@ class Counter extends Component {
     console.log("reset");
     this.setState(initialstate);
   };
-
+  /*
   youSaveCalculus = () => {
     this.setState({
       youSaveValue: this.state.cartValue - this.state.yourOffer,
     });
   };
-
+*/
   handleSubmitMinPrice = (event) => {
     console.log(this.props.aggSetLevel);
     const seedValue =
@@ -140,12 +141,21 @@ class Counter extends Component {
         ? Number((-2.25 - Math.random() * 2).toFixed(2))
         : Number((-3 - Math.random() * 2).toFixed(2));
 
+    this.setState({
+      youSaveValue: Number(this.state.cartValue - this.state.ourOffer).toFixed(
+        2
+      ),
+    });
     return seedValue;
   }
 
   handleAcceptedOffer = (event) => {
+    console.log("Aici");
     this.setState({
       acceptedOffer: true,
+      youSaveValue: Number(this.state.cartValue - this.state.ourOffer).toFixed(
+        2
+      ),
     });
     this.setStoreMessage();
   };
@@ -157,6 +167,9 @@ class Counter extends Component {
     this.setState({
       yourOffer: this.state.counterOffer,
       nextStep: this.state.nextStep + 1,
+      youSaveValue: Number(
+        this.state.cartValue - this.state.counterOffer
+      ).toFixed(2),
     });
     if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
       console.log("in generous");
@@ -219,6 +232,12 @@ class Counter extends Component {
 */
   render() {
     const { cartMinValue } = this.state;
+    cartMinValueUpdate = Number(
+      this.props.selectedPercentage < 1
+        ? this.props.selectedPercentage * this.state.cartValue
+        : this.state.cartMinValue
+    ).toFixed(2);
+
     return (
       <React.Fragment>
         <HeaderSection />
@@ -239,13 +258,20 @@ class Counter extends Component {
                     id="input-min-price"
                     className=" form-control w-25 d-inline"
                     type="number"
-                    placeholder={this.state.cartMinValue}
+                    placeholder={cartMinValueUpdate}
                     min="1"
                     max={this.state.cartValue}
                     name="cartMinValue"
                     onChange={this.handleInputChange}
                   ></input>
-                  <button className="d-inline btn btn-secondary btn-sm m-2 d-inline">
+                  <button
+                    className="d-inline btn btn-secondary btn-sm m-2 d-inline"
+                    disabled={
+                      this.props.selectedPercentage < 1
+                        ? "disabled"
+                        : this.getButtonDisabled()
+                    }
+                  >
                     Set
                   </button>
                 </form>
@@ -308,11 +334,7 @@ class Counter extends Component {
 
               <label className="ml-2">
                 *You save:
-                {this.state.counterOffer == null
-                  ? ""
-                  : Number(
-                      this.state.cartValue - this.state.counterOffer
-                    ).toFixed(2)}
+                {this.state.youSaveValue}
               </label>
             </div>
           </div>
@@ -468,9 +490,9 @@ class Counter extends Component {
           Number(this.state.ourOffer) + Number(this.state.aggressor.na7)
         ).toFixed(2),
       });
-    else if (Number(check) < Number(this.state.cartMinValue)) {
+    else if (Number(check) < Number(cartMinValueUpdate)) {
       this.setState({
-        ourOffer: Number(this.state.cartMinValue),
+        ourOffer: Number(cartMinValueUpdate),
       });
     } else {
       console.log(this.props.aggressionlvl);

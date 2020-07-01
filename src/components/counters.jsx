@@ -15,7 +15,7 @@ class Counters extends Component {
       initialSeed,
       selectedPercentage,
     } = this.props;
-    console.log("incounters" + initialSeed);
+    console.log("incounters" + selectedPercentage);
     return (
       <div>
         {counters.map((counter) => (
