@@ -25,7 +25,7 @@ class Counter extends Component {
     firstOffer: 0,
     yourOffer: 0,
     ourOffer: 0,
-    youSaveValue: "",
+    youSaveValue: 0,
     aggressor: {
       na0: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
       na01: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
@@ -91,7 +91,7 @@ class Counter extends Component {
       messageCenter: this.state.messageCenter,
       nextStep: this.state.nextStep,
       aggressor: this.state.aggressor,
-      youSaveValue: "",
+      youSaveValue: 0,
       ourOffer:
         Number(this.state.cartValue) +
         (Number(this.state.cartValue) * seedValue) / 100,
@@ -290,6 +290,9 @@ class Counter extends Component {
                     ? ""
                     : this.state.counterStep < 1
                     ? this.displayFirstOffer()
+                    : Number(this.state.ourOffer).toFixed(2) <
+                      Number(cartMinValueUpdate)
+                    ? Number(cartMinValueUpdate).toFixed(2)
                     : Number(this.state.ourOffer).toFixed(2)
                 }
               ></input>
@@ -334,7 +337,7 @@ class Counter extends Component {
 
               <label className="ml-2">
                 *You save:
-                {this.state.youSaveValue}
+                {this.state.counterOffer == null ? "" : this.state.youSaveValue}
               </label>
             </div>
           </div>
