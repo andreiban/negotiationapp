@@ -36,7 +36,7 @@ function Dropdown2({ title, onSelectedItem, items, multiSelect = false }) {
   }
 
   return (
-    <div className="dd-wrapper">
+    <div className="dd-wrapper d-inline">
       <div
         tabIndex={0}
         className="dd-header"

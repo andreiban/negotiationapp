@@ -217,17 +217,24 @@ class App extends Component {
       <React.Fragment>
         <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
           <div className="col-md-2 mb-2">
-            <span className="mr-1">Negotium(V0.20) - Aggressiveness Level</span>
+            <span className="mr-1">Negotium(V0.22)</span>
+            <span className="mr-1">Clients</span>
+            <span className="badge badge-pill badge-secondary mr-5">
+              {this.state.counters.filter((c) => c.value > 0).length + 1}
+            </span>
+          </div>
+          <div className="col-md-2 mb-2">
+            <span className="mr-1">Aggressiveness Lvl</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.navAggresivity > 0
                 ? this.state.navAggresivity
                 : "N/A"}
             </span>
-          </div>
-          <div className="col-md-1 mb-2">
-            <span className="mr-1">Clients</span>
-            <span className="badge badge-pill badge-secondary mr-5">
-              {this.state.counters.filter((c) => c.value > 0).length + 1}
+            <span className="mr-1">Discount</span>
+            <span className="d-inline badge badge-pill badge-secondary mr-5 d-inline">
+              {this.state.selectedPercentage > 0
+                ? percentages[this.state.selectedPercentage - 1].show
+                : "20% Default"}
             </span>
           </div>
           <div className="col-md-3 mb-2">
@@ -237,9 +244,10 @@ class App extends Component {
               items={percentages}
             />
           </div>
+
           <div className="col-md-3 mb-2 d-inline">
             <Dropdown
-              title="Select Aggressiveness Level"
+              title="Aggressiveness Level"
               onSelectedItem={this.handleSelectedItem}
               items={items}
             />
