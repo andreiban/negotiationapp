@@ -337,7 +337,11 @@ class Counter extends Component {
 
               <label className="ml-2">
                 *You save:
-                {this.state.counterOffer == null ? "" : this.state.youSaveValue}
+                {this.state.acceptedOffer
+                  ? this.state.youSaveValue
+                  : this.state.counterOffer == null
+                  ? ""
+                  : this.state.youSaveValue}
               </label>
             </div>
           </div>
