@@ -257,7 +257,7 @@ class Counter extends Component {
                   <input
                     id="input-min-price"
                     className=" form-control w-25 d-inline"
-                    type="number"
+                    type="decimal"
                     placeholder={cartMinValueUpdate}
                     min="1"
                     max={this.state.cartValue}
@@ -316,7 +316,7 @@ class Counter extends Component {
                 <div>
                   <input
                     id="input-counter"
-                    type="number"
+                    type="decimal"
                     className="m-2 form-control w-25 d-inline"
                     name="counterOffer"
                     min="0.00"

@@ -217,7 +217,7 @@ class App extends Component {
       <React.Fragment>
         <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
           <div className="col-md-2 mb-2">
-            <span className="mr-1">Negotium(V0.22)</span>
+            <span className="mr-1">Negotium(V0.23)</span>
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.counters.filter((c) => c.value > 0).length + 1}
