@@ -258,6 +258,7 @@ class Counter extends Component {
                     id="input-min-price"
                     className=" form-control w-25 d-inline"
                     type="decimal"
+                    step="0.01"
                     placeholder={cartMinValueUpdate}
                     min="1"
                     max={this.state.cartValue}
@@ -282,7 +283,8 @@ class Counter extends Component {
             <div className="col-md-6 m-6">
               <h4 className="m-2">Our Offer:</h4>
               <input
-                type="number"
+                type="decimal"
+                step="0.01"
                 className="m-2 form-control w-25 d-inline"
                 id="ourOffer"
                 value={
@@ -306,7 +308,7 @@ class Counter extends Component {
 
             <div className="col-md-6 m-6">
               <h4 className="m-2">
-                Your Counter Offer (Step
+                Your CounterOffer (Step
                 <span className="badge badge-pill badge-info ml-1">
                   {this.state.counterStep}
                 </span>
@@ -317,6 +319,7 @@ class Counter extends Component {
                   <input
                     id="input-counter"
                     type="decimal"
+                    step="0.01"
                     className="m-2 form-control w-25 d-inline"
                     name="counterOffer"
                     min="0.00"
