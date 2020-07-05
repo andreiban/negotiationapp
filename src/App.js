@@ -5,150 +5,164 @@ import "./App.css";
 import Dropdown from "./components/dropdown";
 import Dropdown2 from "./components/dropdown2";
 
+const cartMin = 30;
+const cartMax = 150;
+
 const percentages = [
-  { id: 1, show: "20% default", value: 0.8 },
-  { id: 2, show: "25%", value: 0.75 },
-  { id: 3, show: "30%", value: 0.7 },
-  { id: 4, show: "Manual", value: 1 },
+  { id: 1, show: "Manual", value: 1 },
+  { id: 2, show: "20%", value: 0.8 },
+  { id: 3, show: "25%", value: 0.75 },
+  { id: 4, show: "30%", value: 0.7 },
 ];
 const items = [
   {
     id: 1,
     value: "Aggressiveness Lvl 1",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
-    initialSeed: Number((-0.75 - Math.random() * 2).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
+    initialSeed: Number((-0.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 2,
     value: "Aggressiveness Lvl 2",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
-    initialSeed: Number((-0.75 - Math.random() * 2).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
+    initialSeed: Number((-0.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 3,
     value: "Aggressiveness Lvl 3",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
-    initialSeed: Number((-0.75 - Math.random() * 2).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
+    initialSeed: Number((-0.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 4,
     value: "Aggressiveness Lvl 4",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
-    initialSeed: Number((-0.75 - Math.random() * 2).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
+    initialSeed: Number((-0.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 5,
     value: "Aggressiveness Lvl 5",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
-    initialSeed: Number((-0.75 - Math.random() * 2).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
+    initialSeed: Number((-0.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 6,
     value: "Aggressiveness Lvl 6",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-1.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 7,
     value: "Aggressiveness Lvl 7",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-1.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 8,
     value: "Aggressiveness Lvl 8",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-1.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 9,
     value: "Aggressiveness Lvl 9",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-1.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 10,
     value: "Aggressiveness Lvl 10",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-1.5 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 11,
     value: "Aggressiveness Lvl 11",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-2.25 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 12,
     value: "Aggressiveness Lvl 12",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-2.25 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 13,
     value: "Aggressiveness Lvl 13",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-2.25 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 14,
     value: "Aggressiveness Lvl 14",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-2.25 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 15,
     value: "Aggressiveness Lvl 15",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-2.25 - Math.random() * 2).toFixed(2)),
   },
   {
     id: 16,
     value: "Aggressiveness Lvl 16",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-3 - Math.random() * 3).toFixed(2)),
   },
   {
     id: 17,
     value: "Aggressiveness Lvl 17",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-3 - Math.random() * 3).toFixed(2)),
   },
   {
     id: 18,
     value: "Aggressiveness Lvl 18",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-3 - Math.random() * 3).toFixed(2)),
   },
   {
     id: 19,
     value: "Aggressiveness Lvl 19",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.01,
+    maxValue: 0.045,
     initialSeed: Number((-3 - Math.random() * 3).toFixed(2)),
   },
   {
     id: 20,
     value: "Aggressiveness Lvl 20",
-    aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    minValue: 0.04,
+    maxValue: 0.045,
     initialSeed: Number((-3 - Math.random() * 3).toFixed(2)),
   },
 ];
 
 class App extends Component {
   state = {
-    navButtonReset: "Reset",
-    navStatus: "Items",
     navAggresivity: 0,
     selectedPercentage: 0,
-    buttonAcceptOffer: "Accept",
-    buttonCounterOffer: "CounterOffer",
-    fieldCart: 0,
-    fieldOurOffer: 0,
-    fieldYourOffer: 0,
-    fieldOffer: 0,
-    fieldYouSave: 0,
-
-    numeButon: "buton1",
+    isAggresivitySet: false,
+    isDiscountSet: false,
 
     counters: [
       { id: 1, value: 4 },
@@ -166,7 +180,6 @@ class App extends Component {
 
   constructor() {
     super();
-    console.log("App - Constructor");
   }
 
   componentDidMount() {
@@ -197,27 +210,30 @@ class App extends Component {
     this.setState({ counters });
   };
 
-  handleSelectedItem = (evt) => {
+  handleSelectedAggressiveness = (evt) => {
     this.setState({
       navAggresivity: evt,
+      isAggresivitySet: true,
     });
     console.log("In Parent:" + evt);
   };
 
-  handleSelectedItem2 = (evt) => {
+  handleSelectedDiscount = (evt) => {
     this.setState({
       selectedPercentage: evt,
+      isDiscountSet: true,
     });
-    console.log("In Parent:" + evt);
+    console.log("App - Discount set:" + evt);
   };
 
   render() {
+    const { isAggresivitySet, isDiscountSet } = this.state;
     console.log("App - Rendered");
     return (
       <React.Fragment>
         <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
           <div className="col-md-2 mb-2">
-            <span className="mr-1">Negotium(V0.23)</span>
+            <span className="mr-1">Negotium(V1.01)</span>
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.counters.filter((c) => c.value > 0).length + 1}
@@ -240,7 +256,7 @@ class App extends Component {
           <div className="col-md-3 mb-2">
             <Dropdown2
               title="Discount %"
-              onSelectedItem={this.handleSelectedItem2}
+              onSelectedItem={this.handleSelectedDiscount}
               items={percentages}
             />
           </div>
@@ -248,7 +264,7 @@ class App extends Component {
           <div className="col-md-3 mb-2 d-inline">
             <Dropdown
               title="Aggressiveness Level"
-              onSelectedItem={this.handleSelectedItem}
+              onSelectedItem={this.handleSelectedAggressiveness}
               items={items}
             />
           </div>
@@ -265,29 +281,19 @@ class App extends Component {
         <main className="container">
           {console.log(items[this.state.navAggresivity])}
           <Counters
+            cartMin={cartMin}
+            cartMax={cartMax}
             counters={this.state.counters}
-            onReset={this.handleReset}
-            onIncrement={this.handleIncrement}
-            onDelete={this.handleDelete}
+            isEnabledButton={isAggresivitySet && isDiscountSet ? true : false}
             selectedPercentage={
               this.state.selectedPercentage < 1
-                ? 1
+                ? 0
                 : percentages[this.state.selectedPercentage - 1].value
             }
-            initialSeed={
+            aggItem={
               this.state.navAggresivity < 1
                 ? 0
-                : items[this.state.navAggresivity - 1].initialSeed
-            }
-            aggSetLevel={this.state.navAggresivity}
-            aggresion={
-              this.state.navAggresivity < 1
-                ? 0
-                : items[
-                    this.state.navAggresivity === 0
-                      ? 1
-                      : Number(this.state.navAggresivity - 1)
-                  ].aggresion
+                : items[Number(this.state.navAggresivity - 1)]
             }
           />
         </main>

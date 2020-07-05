@@ -1,199 +1,115 @@
 import React, { Component } from "react";
-import HeaderSection from "./header-section";
 import StatusBar from "./statusbar";
+import MessageCenter from "./messagecenter";
 import Logo from "./logo.png";
 import Hand from "./hand.gif";
 import { FaUser } from "react-icons/fa";
 
-let initialstate = {};
-let valueCart = 0;
-let cartMinValueUpdate = 0;
 class Counter extends Component {
   state = {
-    minimumValuePercent: 0.8,
-    cartValue: Number((30 + Math.random() * 150).toFixed()),
-    currentStoreMessage: "Let's Start!",
-    acceptedOffer: false,
-    aggressionlvl: 0,
-    cartMinValue: 0,
-    isSetCartMinValue: false,
+    cartValue: 0,
+    cartMinValue: "",
+    isDiscountManual: false,
     isDeal: false,
-    isGenerous: false,
     counterStep: 0,
-    nextStep: 0,
-    maxSteps: 7,
-    firstOffer: 0,
-    yourOffer: 0,
-    ourOffer: 0,
-    youSaveValue: 0,
-    aggressor: {
-      na0: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
-      na01: Number((-0.1 - Math.random() * 0.5).toFixed(2)),
-      na11: Number((-0.02 - Math.random() * 0.005).toFixed(2)),
-      na7: Number((-0.04 - Math.random() * 0.005).toFixed(2)),
-    },
-    messageCenter: {
-      firstOffers: [
-        "I'd like to satisfy your demands. What do you think of this price?",
-        "These are good products and are worth more than your offer!",
-        "We can make a deal but you need to make a higher bid!",
-        "These products are worth more, come on we can make a good deal!",
-      ],
-      finalStage: [
-        "Let's make one last effort, we're about to come to an agreement!",
-        "Let's not miss this chance to close the deal, how about this price?",
-      ],
-      lastOffer: [
-        "I can't make you a better price than this!",
-        "Take this chance, it's our last offer!",
-      ],
-      start: "Let's start",
-      tryAgain: "Your offer is too low, try again...",
-      won: "Great, We have a deal!",
-      generous: "You are too generous, but it would not be fair...",
-      lost: "I am sorry, no deal reached",
-    },
+    ourOffer: "",
+    counterOffer: "",
+    youSave: "",
+    maxSteps: 8,
+    message: "start",
   };
 
   constructor(props) {
     super(props);
 
-    const seedValue =
-      this.props.aggSetLevel < 5
-        ? Number((-0.75 - Math.random() * 1).toFixed(2))
-        : this.props.aggSetLevel < 10
-        ? Number((-1.5 - Math.random() * 1.5).toFixed(2))
-        : this.props.aggSetLevel < 15
-        ? Number((-2.25 - Math.random() * 2).toFixed(2))
-        : Number((-3 - Math.random() * 2.5).toFixed(2));
-
-    valueCart = this.state.cartValue;
-    let temp = 0;
+    let cartInputValue = 0;
+    let counterOfferInputValue = 0;
 
     this.state = {
-      minimumValuePercent: this.state.minimumValuePercent,
-      acceptedOffer: this.state.acceptedOffer,
-      cartValue: this.state.cartValue,
-      isSetCartMinValue: this.state.isSetCartMinValue,
-      isDeal: this.state.isDeal,
-      isGenerous: this.state.isGenerous,
-      cartMinValue: (
-        this.state.cartValue *
-        Number(
-          this.props.selectedPercentage < 1
-            ? this.props.selectedPercentage
-            : this.state.minimumValuePercent
-        )
+      cartValue: Number(
+        this.props.cartMin + Math.random() * this.props.cartMax
       ).toFixed(2),
       counterStep: this.state.counterStep,
-      youSaveValue: this.state.youSaveValue,
       maxSteps: this.state.maxSteps,
-      messageCenter: this.state.messageCenter,
-      nextStep: this.state.nextStep,
-      aggressor: this.state.aggressor,
-      youSaveValue: 0,
-      ourOffer:
-        Number(this.state.cartValue) +
-        (Number(this.state.cartValue) * seedValue) / 100,
+      isDeal: this.state.isDeal,
+      message: this.state.message,
     };
-    initialstate = this.state;
-  }
-  //render function for components
-  resetState = () => {
-    console.log("reset");
-    this.setState(initialstate);
-  };
-  /*
-  youSaveCalculus = () => {
-    this.setState({
-      youSaveValue: this.state.cartValue - this.state.yourOffer,
-    });
-  };
-*/
-  handleSubmitMinPrice = (event) => {
-    console.log(this.props.aggSetLevel);
-    const seedValue =
-      this.props.aggSetLevel < 5
-        ? Number((-0.75 - Math.random() * 2).toFixed(2))
-        : this.props.aggSetLevel < 10
-        ? Number((-1.5 - Math.random() * 2).toFixed(2))
-        : this.props.aggSetLevel < 15
-        ? Number((-2.25 - Math.random() * 2).toFixed(2))
-        : Number((-3 - Math.random() * 2).toFixed(2));
-    console.log(seedValue);
-    event.preventDefault();
-    this.setState({
-      isSetCartMinValue: true,
-      ourOffer:
-        this.temp > 0 ? this.temp : Number(this.state.cartValue) + seedValue,
-    });
-    const data = this.state;
-    console.log(data);
-  };
-
-  setFirstValue() {
-    const seedValue =
-      this.props.aggSetLevel < 5
-        ? Number((-0.75 - Math.random() * 2).toFixed(2))
-        : this.props.aggSetLevel < 10
-        ? Number((-1.5 - Math.random() * 2).toFixed(2))
-        : this.props.aggSetLevel < 15
-        ? Number((-2.25 - Math.random() * 2).toFixed(2))
-        : Number((-3 - Math.random() * 2).toFixed(2));
-
-    this.setState({
-      youSaveValue: Number(this.state.cartValue - this.state.ourOffer).toFixed(
-        2
-      ),
-    });
-    return seedValue;
   }
 
-  handleAcceptedOffer = (event) => {
-    console.log("Aici");
-    this.setState({
-      acceptedOffer: true,
-      youSaveValue: Number(this.state.cartValue - this.state.ourOffer).toFixed(
-        2
-      ),
-    });
-    this.setStoreMessage();
-  };
+  componentDidMount() {
+    console.log("Counter " + this.props.counter.id + " is mounted!");
+    console.log(this.props.cartMin);
+    if (this.props.isAggresivitySet && this.props.isDiscountSet)
+      this.setState({
+        isEnabledButton: true,
 
-  handleSubmitCounter = (event) => {
-    event.preventDefault();
-    console.log("Run CounterOffer" + this.state.counterOffer);
-    console.log("Cart Min Value" + this.state.cartMinValue);
-    this.setState({
-      yourOffer: this.state.counterOffer,
-      nextStep: this.state.nextStep + 1,
-      youSaveValue: Number(
-        this.state.cartValue - this.state.counterOffer
-      ).toFixed(2),
-    });
-    if (Number(this.state.counterOffer) > Number(this.state.cartValue)) {
-      console.log("in generous");
-      this.setState({
-        isGenerous: true,
+        cartValue: this.props.cartMin,
       });
-      this.setStoreMessage();
-    } else if (
-      Number(this.state.counterOffer) >= Number(this.state.cartMinValue)
-    ) {
-      console.log("is deal true");
-      this.props.counter.value = this.state.yourOffer;
-      this.setState({
-        isDeal: true,
-      });
-      this.setStoreMessage();
-    } else {
-      console.log("increase step");
-      this.setState({
-        counterStep: this.state.counterStep + 1,
-      });
-      this.setStoreMessage();
-      this.newOfferGenerator(this.state.counterStep);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.selectedDiscount !== prevProps.selectedDiscount) {
+      if (this.props.selectedDiscount < 1) {
+        console.log("selecteddiscount" + this.props.selectedDiscount);
+        this.setState({
+          cartMinValue: Number(
+            this.state.cartValue * this.props.selectedDiscount
+          ).toFixed(2),
+          isDiscountManual: false,
+        });
+      } else {
+        console.log("selecteddiscount" + this.props.selectedDiscount);
+        this.setState({ isDiscountManual: true });
+      }
     }
+    //generate first offer
+    if (this.props.isEnabledButton != prevProps.isEnabledButton) {
+      console.log("Generate first Offer" + this.props.isEnabledButton);
+      console.log(
+        "valoare" + this.props.aggItem.initialSeed + "" + this.state.cartValue
+      );
+      const temp = Number(
+        Number(this.state.cartValue) + Number(this.props.aggItem.initialSeed)
+      ).toFixed(2);
+      this.setState({
+        ourOffer: temp,
+        youSave: Number(Number(this.state.cartValue) - temp).toFixed(2),
+      });
+    }
+    //generate first offer when aggressiveness is switched - nice to have
+    if (
+      this.props.isEnabledButton === prevProps.isEnabledButton &&
+      this.props.aggItem != prevProps.aggItem &&
+      this.state.counterStep === 0
+    ) {
+      console.log("Generate first Offer" + this.props.isEnabledButton);
+      console.log(
+        "valoare" + this.props.aggItem.initialSeed + "" + this.state.cartValue
+      );
+      const temp = Number(
+        Number(this.state.cartValue) + Number(this.props.aggItem.initialSeed)
+      ).toFixed(2);
+      this.setState({
+        ourOffer: temp,
+        youSave: Number(Number(this.state.cartValue) - temp).toFixed(2),
+      });
+    }
+    // disable client when counterstep reaches max rounds
+
+    if (prevState.counterStep === this.state.maxSteps - 1) {
+      this.setState({ message: "lost" });
+    }
+  }
+
+  handleInputChangeNoState = (event) => {
+    event.preventDefault();
+    this.cartInputValue = event.target.value;
+  };
+
+  handleInputCounterNoState = (event) => {
+    event.preventDefault();
+    this.counterOfferInputValue = event.target.value;
   };
 
   handleInputChange = (event) => {
@@ -203,74 +119,124 @@ class Counter extends Component {
     });
   };
 
-  handleInputChange2 = (event) => {
+  handleSubmitMinValue = (event) => {
     event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ cartMinValue: this.cartInputValue });
   };
 
-  displayFirstOffer() {
-    const value = Number(this.state.cartValue + this.props.initialSeed).toFixed(
-      2
-    );
-    this.temp = value;
-    return value;
-  }
-  /*componentDidMount() {
-    var htmlInput = document.getElementById("input-counter");
-    console.log(valueCart);
-    htmlInput.oninvalid = function (e) {
-      e.target.setCustomValidity(
-        "You are too generous, but it would not be fair..."
-      );
-      htmlInput.oninput = function (e) {
-        e.target.setCustomValidity(" ");
-      };
-    };
-  }
-*/
-  render() {
-    const { cartMinValue } = this.state;
-    cartMinValueUpdate = Number(
-      this.props.selectedPercentage < 1
-        ? this.props.selectedPercentage * this.state.cartValue
-        : this.state.cartMinValue
-    ).toFixed(2);
+  //handle CounterOffer + Generate New Offer + Display Messages
+  handleSubmitCounterOffer = (event) => {
+    event.preventDefault();
+    if (Number(this.counterOfferInputValue) >= Number(this.state.cartValue)) {
+      console.log("too generous");
+      this.setState({ message: "generous" });
+    } else if (
+      Number(this.counterOfferInputValue) >= Number(this.state.cartMinValue)
+    ) {
+      console.log("we have a winner!");
+      this.setState({ message: "won" });
+      this.setState({ isDeal: true });
+    } else if (
+      this.state.counterStep >= 0 &&
+      this.state.counterStep < this.state.maxSteps - 3
+    ) {
+      this.setState({ message: "firstOffers" });
+    } else if (
+      this.state.counterStep >= this.state.maxSteps - 3 &&
+      this.state.counterStep < this.state.maxSteps - 2
+    ) {
+      this.setState({ message: "finalStage" });
+    } else if (
+      this.state.counterStep >= this.state.maxSteps - 2 &&
+      this.state.counterStep < this.state.maxSteps
+    ) {
+      this.setState({ message: "lastOffer" });
+    } else {
+      console.log("Other case?");
+    }
 
+    const newStep = this.state.counterStep + 1;
+    this.setState({
+      counterOffer: this.counterOfferInputValue,
+      counterStep: newStep,
+    });
+    this.GenerateNewOffer(newStep);
+  };
+
+  //Generate new offers (this is where the logic sits)
+  GenerateNewOffer = (step) => {
+    const { aggItem } = this.props;
+    console.log("Generating new offer...");
+    // aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
+    //  Math.random() * (max - min + 1) + min)
+    /* Math.random() *
+    (Number(aggItem.maxValue) -
+    Number(aggItem.minValue + 1) +
+    Number(aggItem.minValue));*/
+    const temp =
+      Math.random() * (Number(aggItem.maxValue) - Number(aggItem.minValue)) +
+      Number(aggItem.minValue);
+    console.log("Numerfile" + temp);
+    const newOffer = Number(
+      Number(this.state.ourOffer) - Number(this.state.ourOffer) * Number(temp)
+    ).toFixed(2);
+    console.log("New Offer" + newOffer);
+    Number(newOffer) >= Number(this.state.cartMinValue)
+      ? this.setState({ ourOffer: newOffer })
+      : this.setState({ ourOffer: this.state.cartMinValue });
+  };
+
+  handleAcceptedOffer = () => {
+    this.setState({ isDeal: true });
+    console.log("Offer was accepted!");
+    this.setState({ message: "won" });
+  };
+
+  //render starts here
+  render() {
+    const { isEnabledButton, counter, isDiscountManual, aggItem } = this.props;
+    console.log("deal" + this.state.isDeal);
     return (
       <React.Fragment>
-        <HeaderSection />
         <div className="jumbotron">
           <div className="row">
             <div className="col">
               <FaUser className="d-inline mb-2 mr-2" />
               <h5 className="d-inline">
-                Client {this.props.counter.id}: Cart Value
+                Client {counter.id}: Cart Value
                 <span className="badge badge-pill badge-info ml-3 mr-5">
                   {this.state.cartValue}
                 </span>
               </h5>
               <h6 className=" d-inline mt-3">
                 Set Minimum Price (Hidden)
-                <form className="d-inline" onSubmit={this.handleSubmitMinPrice}>
+                <form className="d-inline" onSubmit={this.handleSubmitMinValue}>
                   <input
                     id="input-min-price"
                     className=" form-control w-25 d-inline"
-                    type="decimal"
+                    type="number"
                     step="0.01"
-                    placeholder={cartMinValueUpdate}
+                    pattern="^\d*(\.\d{0,2})?$"
+                    placeholder=""
+                    defaultValue={this.state.cartMinValue}
                     min="1"
                     max={this.state.cartValue}
                     name="cartMinValue"
-                    onChange={this.handleInputChange}
+                    onChange={this.handleInputChangeNoState}
                   ></input>
                   <button
-                    className="d-inline btn btn-secondary btn-sm m-2 d-inline"
+                    className={this.setButtonClasses("btn-primary")}
                     disabled={
-                      this.props.selectedPercentage < 1
-                        ? "disabled"
-                        : this.getButtonDisabled()
+                      !this.state.isDeal
+                        ? isEnabledButton
+                          ? Number(this.state.counterStep) <
+                            Number(this.state.maxSteps)
+                            ? this.state.isDiscountManual
+                              ? ""
+                              : this.setButtonDisabled()
+                            : this.setButtonDisabled()
+                          : this.setButtonDisabled()
+                        : this.setButtonDisabled()
                     }
                   >
                     Set
@@ -283,24 +249,30 @@ class Counter extends Component {
             <div className="col-md-6 m-6">
               <h4 className="m-2">Our Offer:</h4>
               <input
-                type="decimal"
+                className=" form-control w-25 d-inline"
+                type="number"
                 step="0.01"
-                className="m-2 form-control w-25 d-inline"
-                id="ourOffer"
-                value={
-                  this.props.aggressionlvl === 0
-                    ? ""
-                    : this.state.counterStep < 1
-                    ? this.displayFirstOffer()
-                    : Number(this.state.ourOffer).toFixed(2) <
-                      Number(cartMinValueUpdate)
-                    ? Number(cartMinValueUpdate).toFixed(2)
-                    : Number(this.state.ourOffer).toFixed(2)
-                }
+                pattern="^\d*(\.\d{0,2})?$"
+                placeholder=""
+                min="1"
+                max=""
+                name=""
+                defaultValue={this.state.ourOffer}
+                disabled
               ></input>
               <button
                 onClick={this.handleAcceptedOffer}
-                className="btn btn-success btn-sm m-2 d-inline"
+                className={this.setButtonClasses("btn-success")}
+                disabled={
+                  !this.state.isDeal
+                    ? isEnabledButton
+                      ? Number(this.state.counterStep) <
+                        Number(this.state.maxSteps)
+                        ? ""
+                        : this.setButtonDisabled()
+                      : this.setButtonDisabled()
+                    : this.setButtonDisabled()
+                }
               >
                 Accept Offer
               </button>
@@ -314,23 +286,30 @@ class Counter extends Component {
                 </span>
                 )
               </h4>
-              <form onSubmit={this.handleSubmitCounter}>
+              <form onSubmit={this.handleSubmitCounterOffer}>
                 <div>
                   <input
                     id="input-counter"
-                    type="decimal"
+                    type="number"
                     step="0.01"
+                    required="required"
+                    pattern="^\d*(\.\d{0,2})?$"
                     className="m-2 form-control w-25 d-inline"
                     name="counterOffer"
                     min="0.00"
-                    onChange={this.handleInputChange2}
+                    onChange={this.handleInputCounterNoState}
                   ></input>
                   <button
-                    className={this.getButtonClasses()}
+                    className={this.setButtonClasses("btn-warning")}
                     disabled={
-                      this.props.aggressionlvl === 0
-                        ? "disabled"
-                        : this.getButtonDisabled()
+                      !this.state.isDeal
+                        ? isEnabledButton
+                          ? Number(this.state.counterStep) <
+                            Number(this.state.maxSteps)
+                            ? ""
+                            : this.setButtonDisabled()
+                          : this.setButtonDisabled()
+                        : this.setButtonDisabled()
                     }
                   >
                     Counteroffer
@@ -338,14 +317,7 @@ class Counter extends Component {
                 </div>
               </form>
 
-              <label className="ml-2">
-                *You save:
-                {this.state.acceptedOffer
-                  ? this.state.youSaveValue
-                  : this.state.counterOffer == null
-                  ? ""
-                  : this.state.youSaveValue}
-              </label>
+              <label className="ml-2">*You save: {this.state.youSave}</label>
             </div>
           </div>
           <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-white">
@@ -361,38 +333,7 @@ class Counter extends Component {
             <StatusBar progress={this.state.counterStep} />
             <br></br>
             <h5 className="mb-2">
-              {this.state.acceptedOffer || this.state.isDeal
-                ? this.state.messageCenter.won
-                : Number(this.state.yourOffer) > Number(this.state.cartValue)
-                ? this.state.messageCenter.generous
-                : this.state.counterStep === 0 && !this.state.acceptedOffer
-                ? this.state.messageCenter.start
-                : this.state.counterStep === Number(this.state.maxSteps - 1) &&
-                  !this.state.acceptedOffer
-                ? this.state.messageCenter.finalStage[
-                    Math.floor(
-                      Math.random() * this.state.messageCenter.finalStage.length
-                    )
-                  ]
-                : this.state.counterStep <= this.state.maxSteps &&
-                  !this.state.acceptedOffer
-                ? this.state.messageCenter.firstOffers[
-                    Math.floor(
-                      Math.random() *
-                        this.state.messageCenter.firstOffers.length
-                    )
-                  ]
-                : this.state.counterStep === Number(this.state.maxSteps) &&
-                  !this.state.acceptedOffer
-                ? this.state.messageCenter.lastOffer[
-                    Math.floor(
-                      Math.random() * this.state.messageCenter.lastOffer.length
-                    )
-                  ]
-                : this.state.counterStep <= this.state.maxSteps &&
-                  !this.state.acceptedOffer
-                ? this.state.messageCenter.won
-                : this.state.messageCenter.lost}
+              <MessageCenter messageType={this.state.message} />
             </h5>
           </div>
         </div>
@@ -400,119 +341,19 @@ class Counter extends Component {
     );
   }
 
-  renderTags() {
-    if (this.state.tags.length === 0) return <p>There are no tags</p>;
-
-    return (
-      <ul>
-        {this.state.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    );
-  }
-
-  getButtonClasses() {
-    let classes = "btn btn-sm m-2 d-inline ";
-    classes +=
-      this.state.counterStep <= this.state.maxSteps
-        ? "badge-warning"
-        : "badge-disabled";
-    return classes;
-  }
-
-  getButtonDisabled() {
-    if (this.state.counterStep <= this.state.maxSteps) {
+  /*Helpers*/
+  //disable buttons when Aggresivity & Discount not set
+  setButtonDisabled() {
+    if (1 > 2) {
       return "";
     }
     return "disabled";
   }
 
-  setStoreMessage = () => {
-    console.log("in store message");
-    if (this.state.acceptedOffer || this.state.isDeal)
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.won,
-      });
-    else if (Number(this.state.yourOffer) > Number(this.state.cartValue)) {
-      this.setState({ currentStoreMessage: this.state.messageCenter.generous });
-    } else if (this.state.counterStep === 0 && !this.state.acceptedOffer)
-      this.setState({ currentStoreMessage: this.state.messageCenter.start });
-    else if (
-      this.state.counterStep === Number(this.state.maxSteps - 1) &&
-      !this.state.acceptedOffer
-    )
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.finalStage[
-          Math.floor(Math.random() * this.state.messageCenter.finalStage.length)
-        ],
-      });
-    else if (
-      this.state.counterStep === Number(this.state.maxSteps) &&
-      !this.state.acceptedOffer
-    )
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.lastOffer[
-          Math.floor(Math.random() * this.state.messageCenter.lastOffer.length)
-        ],
-      });
-    else if (
-      this.state.counterStep <= this.state.maxSteps &&
-      !this.state.acceptedOffer
-    )
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.firstOffers[
-          Math.floor(
-            Math.random() * this.state.messageCenter.firstOffers.length
-          )
-        ],
-      });
-    else if (
-      this.state.counterStep <= this.state.maxSteps &&
-      this.state.acceptedOffer
-    )
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.won,
-      });
-    else
-      this.setState({
-        currentStoreMessage: this.state.messageCenter.lost,
-      });
-  };
-
-  // Generate new offers
-  newOfferGenerator(step) {
-    console.log("NewOfferGenerator" + step);
-
-    let check =
-      Number(this.state.ourOffer) +
-      Number(this.state.ourOffer * this.state.aggressor.na7);
-
-    if (step > 0 && step < 3 && Number(this.state.cartValue < 50))
-      this.setState({
-        ourOffer: (
-          Number(this.state.ourOffer) + Number(this.state.aggressor.na7)
-        ).toFixed(2),
-      });
-    else if (step > 0 && step < 3 && Number(this.state.cartValue > 50))
-      this.setState({
-        ourOffer: (
-          Number(this.state.ourOffer) + Number(this.state.aggressor.na7)
-        ).toFixed(2),
-      });
-    else if (Number(check) < Number(cartMinValueUpdate)) {
-      this.setState({
-        ourOffer: Number(cartMinValueUpdate),
-      });
-    } else {
-      console.log(this.props.aggressionlvl);
-      this.setState({
-        ourOffer: (
-          Number(this.state.ourOffer) +
-          Number(this.state.ourOffer * this.props.aggressionlvl)
-        ).toFixed(2),
-      });
-    }
+  //
+  setButtonClasses(type) {
+    let classes = "btn btn-sm m-2 d-inline " + type + " ";
+    return classes;
   }
 }
 

@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import Counter from "./counter";
-import HeaderSection from "./header-section";
 
 class Counters extends Component {
   render() {
     //object destructuring
     const {
-      onReset,
-      aggresion,
-      aggSetLevel,
       counters,
-      onDelete,
-      onIncrement,
-      initialSeed,
       selectedPercentage,
+      isEnabledButton,
+      cartMin,
+      cartMax,
+      aggItem,
     } = this.props;
     console.log("incounters" + selectedPercentage);
     return (
@@ -21,13 +18,12 @@ class Counters extends Component {
         {counters.map((counter) => (
           <Counter
             key={counter.id}
-            onDelete={onDelete}
-            onIncrement={onIncrement}
             counter={counter}
-            aggSetLevel={aggSetLevel}
-            aggressionlvl={aggresion}
-            initialSeed={initialSeed}
-            selectedPercentage={selectedPercentage}
+            cartMin={cartMin}
+            cartMax={cartMax}
+            isEnabledButton={isEnabledButton}
+            aggItem={aggItem}
+            selectedDiscount={selectedPercentage}
           ></Counter>
         ))}
       </div>
