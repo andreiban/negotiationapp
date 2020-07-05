@@ -158,6 +158,9 @@ class Counter extends Component {
     const newStep = this.state.counterStep + 1;
     this.setState({
       counterOffer: this.counterOfferInputValue,
+      youSave: Number(
+        Number(this.state.cartValue) - Number(this.counterOfferInputValue)
+      ).toFixed(2),
       counterStep: newStep,
     });
     this.GenerateNewOffer(newStep);
@@ -187,7 +190,10 @@ class Counter extends Component {
   };
 
   handleAcceptedOffer = () => {
-    this.setState({ isDeal: true });
+    this.setState({
+      isDeal: true,
+      youSave: Number(this.state.cartValue - this.state.ourOffer).toFixed(2),
+    });
     console.log("Offer was accepted!");
     this.setState({ message: "won" });
   };
