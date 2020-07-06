@@ -11,6 +11,7 @@ class Counter extends Component {
     cartMinValue: "",
     isDiscountManual: false,
     isDeal: false,
+    isGenerous: false,
     counterStep: 0,
     ourOffer: "",
     counterOffer: "",
@@ -32,6 +33,7 @@ class Counter extends Component {
       counterStep: this.state.counterStep,
       maxSteps: this.state.maxSteps,
       isDeal: this.state.isDeal,
+      isGenerous: this.state.isGenerous,
       message: this.state.message,
     };
   }
@@ -126,19 +128,22 @@ class Counter extends Component {
 
   //handle CounterOffer + Generate New Offer + Display Messages
   handleSubmitCounterOffer = (event) => {
+    let newStep = this.state.counterStep;
     event.preventDefault();
     console.log("counterstep" + this.state.counterStep);
     if (this.state.counterStep === 7) {
       console.log("Finish!");
       this.setState({ message: "lost" });
       this.setState({ isDeal: true });
+      this.setState({ counterStep: 8 });
     } else if (
       Number(this.counterOfferInputValue) >= Number(this.state.cartValue)
     ) {
       console.log("too generous");
       this.setState({ message: "generous" });
     } else if (
-      Number(this.counterOfferInputValue) >= Number(this.state.cartMinValue)
+      Number(this.counterOfferInputValue) >= Number(this.state.cartMinValue) &&
+      Number(this.counterOfferInputValue) < Number(this.state.cartValue)
     ) {
       console.log("we have a winner!");
       this.setState({ message: "won" });
@@ -148,29 +153,40 @@ class Counter extends Component {
       this.state.counterStep < this.state.maxSteps - 3
     ) {
       this.setState({ message: "firstOffers" });
+      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
     } else if (
       this.state.counterStep >= this.state.maxSteps - 3 &&
       this.state.counterStep < this.state.maxSteps - 2
     ) {
       this.setState({ message: "finalStage" });
+      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
     } else if (
       this.state.counterStep >= this.state.maxSteps - 2 &&
-      this.state.counterStep < this.state.maxSteps
+      this.state.counterStep < this.state.maxSteps &&
+      Number(this.counterOfferInputValue) <= Number(this.state.cartValue)
     ) {
       this.setState({ message: "lastOffer" });
+      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+    } else if (
+      this.state.counterStep >= this.state.maxSteps - 1 &&
+      this.state.counterStep < this.state.maxSteps &&
+      Number(this.counterOfferInputValue) >= Number(this.state.cartValue)
+    ) {
+      this.setState({ message: "generous" });
     } else {
       console.log("Other case?");
     }
+  };
 
-    const newStep = this.state.counterStep + 1;
+  newStepAndOffer = (counterOfferInputValue, step) => {
     this.setState({
-      counterOffer: this.counterOfferInputValue,
+      counterOffer: counterOfferInputValue,
       youSave: Number(
-        Number(this.state.cartValue) - Number(this.counterOfferInputValue)
+        Number(this.state.cartValue) - Number(counterOfferInputValue)
       ).toFixed(2),
-      counterStep: newStep,
+      counterStep: step,
     });
-    this.GenerateNewOffer(newStep);
+    this.GenerateNewOffer(step);
   };
 
   //Generate new offers (this is where the logic sits)
