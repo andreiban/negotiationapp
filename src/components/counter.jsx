@@ -97,9 +97,9 @@ class Counter extends Component {
     }
     // disable client when counterstep reaches max rounds
 
-    if (prevState.counterStep === this.state.maxSteps - 1) {
-      this.setState({ message: "lost" });
-    }
+    // if (prevState.counterStep === this.state.maxSteps - 1) {
+    //  this.setState({ message: "lost" });
+    // }
   }
 
   handleInputChangeNoState = (event) => {
@@ -127,7 +127,14 @@ class Counter extends Component {
   //handle CounterOffer + Generate New Offer + Display Messages
   handleSubmitCounterOffer = (event) => {
     event.preventDefault();
-    if (Number(this.counterOfferInputValue) >= Number(this.state.cartValue)) {
+    console.log("counterstep" + this.state.counterStep);
+    if (this.state.counterStep === 7) {
+      console.log("Finish!");
+      this.setState({ message: "lost" });
+      this.setState({ isDeal: true });
+    } else if (
+      Number(this.counterOfferInputValue) >= Number(this.state.cartValue)
+    ) {
       console.log("too generous");
       this.setState({ message: "generous" });
     } else if (

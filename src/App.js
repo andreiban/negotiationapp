@@ -233,7 +233,7 @@ class App extends Component {
       <React.Fragment>
         <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
           <div className="col-md-2 mb-2">
-            <span className="mr-1">Negotium(V1.01)</span>
+            <span className="mr-1">Negotium(V1.02)</span>
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.counters.filter((c) => c.value > 0).length + 1}
@@ -250,7 +250,7 @@ class App extends Component {
             <span className="d-inline badge badge-pill badge-secondary mr-5 d-inline">
               {this.state.selectedPercentage > 0
                 ? percentages[this.state.selectedPercentage - 1].show
-                : "20% Default"}
+                : "N/A"}
             </span>
           </div>
           <div className="col-md-3 mb-2">
