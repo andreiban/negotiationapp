@@ -5,8 +5,8 @@ import "./App.css";
 import Dropdown from "./components/dropdown";
 import Dropdown2 from "./components/dropdown2";
 
-const cartMin = 30;
-const cartMax = 150;
+const cartMin = 5;
+const cartMax = 30;
 
 const percentages = [
   { id: 1, show: "Manual", value: 1 },
