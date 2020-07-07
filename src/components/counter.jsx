@@ -97,11 +97,14 @@ class Counter extends Component {
         youSave: Number(Number(this.state.cartValue) - temp).toFixed(2),
       });
     }
-    // disable client when counterstep reaches max rounds
-
-    // if (prevState.counterStep === this.state.maxSteps - 1) {
-    //  this.setState({ message: "lost" });
-    // }
+    // display yousave value on ourOffer change
+    if (this.state.ourOffer !== prevState.ourOffer) {
+      this.setState({
+        youSave: Number(
+          Number(this.state.cartValue) - Number(this.state.ourOffer)
+        ).toFixed(2),
+      });
+    }
   }
 
   handleInputChangeNoState = (event) => {
@@ -181,9 +184,6 @@ class Counter extends Component {
   newStepAndOffer = (counterOfferInputValue, step) => {
     this.setState({
       counterOffer: counterOfferInputValue,
-      youSave: Number(
-        Number(this.state.cartValue) - Number(counterOfferInputValue)
-      ).toFixed(2),
       counterStep: step,
     });
     this.GenerateNewOffer(step);
@@ -305,6 +305,9 @@ class Counter extends Component {
               >
                 Accept Offer
               </button>
+              <div>
+                <label className="ml-2">*You save: {this.state.youSave}</label>
+              </div>
             </div>
 
             <div className="col-md-6 m-6">
@@ -345,8 +348,6 @@ class Counter extends Component {
                   </button>
                 </div>
               </form>
-
-              <label className="ml-2">*You save: {this.state.youSave}</label>
             </div>
           </div>
           <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-white">

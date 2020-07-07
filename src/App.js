@@ -5,8 +5,8 @@ import "./App.css";
 import Dropdown from "./components/dropdown";
 import Dropdown2 from "./components/dropdown2";
 
-const cartMin = 5;
-const cartMax = 30;
+const cartMin = 30;
+const cartMax = 150;
 
 const percentages = [
   { id: 1, show: "Manual", value: 1 },
@@ -233,7 +233,7 @@ class App extends Component {
       <React.Fragment>
         <div className="row d-flex justify-content-center mt-2 pt-2 pb-2 bg-light">
           <div className="col-md-2 mb-2">
-            <span className="mr-1">Negotium(V1.04)</span>
+            <span className="mr-1">Negotium(V1.05)</span>
             <span className="mr-1">Clients</span>
             <span className="badge badge-pill badge-secondary mr-5">
               {this.state.counters.filter((c) => c.value > 0).length + 1}
