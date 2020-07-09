@@ -25,7 +25,7 @@ class MessageCenter extends Component {
     },
   };
   render() {
-    const { messageType } = this.props;
+    const { messageType, youSaveFinal } = this.props;
 
     if (messageType === "firstOffers")
       return this.state.messageCenter.firstOffers[
@@ -40,7 +40,13 @@ class MessageCenter extends Component {
         Math.floor(Math.random() * this.state.messageCenter.lastOffer.length)
       ];
     else if (messageType === "start") return this.state.messageCenter.start;
-    else if (messageType === "won") return this.state.messageCenter.won;
+    else if (messageType === "won")
+      return (
+        this.state.messageCenter.won +
+        " You got a discount worth of " +
+        youSaveFinal +
+        " !"
+      );
     else if (messageType === "generous")
       return this.state.messageCenter.generous;
     else return this.state.messageCenter.lost;

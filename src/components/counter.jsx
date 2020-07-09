@@ -149,7 +149,13 @@ class Counter extends Component {
       Number(this.counterOfferInputValue) < Number(this.state.cartValue)
     ) {
       console.log("we have a winner!");
-      this.setState({ message: "won" });
+      this.setState({
+        message: "won",
+        isDeal: true,
+        youSave: Number(
+          this.state.cartValue - this.counterOfferInputValue
+        ).toFixed(2),
+      });
       this.setState({ isDeal: true });
     } else if (
       this.state.counterStep >= 0 &&
@@ -363,7 +369,10 @@ class Counter extends Component {
             <StatusBar progress={this.state.counterStep} />
             <br></br>
             <h5 className="mb-2">
-              <MessageCenter messageType={this.state.message} />
+              <MessageCenter
+                messageType={this.state.message}
+                youSaveFinal={this.state.youSave}
+              />
             </h5>
           </div>
         </div>
