@@ -7,7 +7,7 @@ class MessageCenter extends Component {
         "I'd like to satisfy your demands. What do you think of this price?",
         "These are good products and are worth more than your offer!",
         "We can make a deal but you need to make a higher bid!",
-        "These products are worth more, come on we can make a good deal!",
+        "These products are worth more, come on, we can make a good deal!",
       ],
       finalStage: [
         "Let's make one last effort, we're about to come to an agreement!",
