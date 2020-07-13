@@ -17,6 +17,8 @@ class MessageCenter extends Component {
         "I can't make you a better price than this!",
         "Take this chance, it's our last offer!",
       ],
+      sameOffer: "I understand, but you need to make a different bid!",
+      sameOfferLast: "I am afraid we have reached a stalemate...",
       start: "Let's start",
       tryAgain: "Your offer is too low, try again...",
       won: "Great, We have a deal!",
@@ -49,6 +51,10 @@ class MessageCenter extends Component {
       );
     else if (messageType === "generous")
       return this.state.messageCenter.generous;
+    else if (messageType === "sameOffer")
+      return this.state.messageCenter.sameOffer;
+    else if (messageType === "sameOfferLast")
+      return this.state.messageCenter.sameOfferLast;
     else return this.state.messageCenter.lost;
   }
 }

@@ -25,6 +25,7 @@ class Counter extends Component {
 
     let cartInputValue = 0;
     let counterOfferInputValue = 0;
+    let prevCounterOfferInputValue = -1;
 
     this.state = {
       cartValue: Number(
@@ -161,21 +162,36 @@ class Counter extends Component {
       this.state.counterStep >= 0 &&
       this.state.counterStep < this.state.maxSteps - 3
     ) {
-      this.setState({ message: "firstOffers" });
-      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      if (this.prevCounterOfferInputValue === this.counterOfferInputValue) {
+        this.setState({ message: "sameOffer" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1, true);
+      } else {
+        this.setState({ message: "firstOffers" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      }
     } else if (
       this.state.counterStep >= this.state.maxSteps - 3 &&
       this.state.counterStep < this.state.maxSteps - 2
     ) {
-      this.setState({ message: "finalStage" });
-      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      if (this.prevCounterOfferInputValue === this.counterOfferInputValue) {
+        this.setState({ message: "sameOffer" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1, true);
+      } else {
+        this.setState({ message: "finalStage" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      }
     } else if (
       this.state.counterStep >= this.state.maxSteps - 2 &&
       this.state.counterStep < this.state.maxSteps &&
       Number(this.counterOfferInputValue) <= Number(this.state.cartValue)
     ) {
-      this.setState({ message: "lastOffer" });
-      this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      if (this.prevCounterOfferInputValue === this.counterOfferInputValue) {
+        this.setState({ message: "sameOfferLast" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1, true);
+      } else {
+        this.setState({ message: "lastOffer" });
+        this.newStepAndOffer(this.counterOfferInputValue, newStep + 1);
+      }
     } else if (
       this.state.counterStep >= this.state.maxSteps - 1 &&
       this.state.counterStep < this.state.maxSteps &&
@@ -187,18 +203,20 @@ class Counter extends Component {
     }
   };
 
-  newStepAndOffer = (counterOfferInputValue, step) => {
+  newStepAndOffer = (counterOfferInputValue, step, isSame) => {
+    this.prevCounterOfferInputValue = counterOfferInputValue;
     this.setState({
       counterOffer: counterOfferInputValue,
       counterStep: step,
     });
-    this.GenerateNewOffer(step);
+    this.GenerateNewOffer(step, isSame);
   };
 
   //Generate new offers (this is where the logic sits)
-  GenerateNewOffer = (step) => {
+  GenerateNewOffer = (step, isSame) => {
     const { aggItem } = this.props;
     console.log("Generating new offer...");
+    console.log("isSame", isSame);
     // aggresion: Number((-0.04 - Math.random() * 0.045).toFixed(2)),
     //  Math.random() * (max - min + 1) + min)
     /* Math.random() *
@@ -213,7 +231,9 @@ class Counter extends Component {
       Number(this.state.ourOffer) - Number(this.state.ourOffer) * Number(temp)
     ).toFixed(2);
     console.log("New Offer" + newOffer);
-    Number(newOffer) >= Number(this.state.cartMinValue)
+    isSame === true
+      ? this.setState({})
+      : Number(newOffer) >= Number(this.state.cartMinValue)
       ? this.setState({ ourOffer: newOffer })
       : this.setState({ ourOffer: this.state.cartMinValue });
   };
